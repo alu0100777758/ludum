@@ -18,20 +18,11 @@ public class RvsB_World implements Drawable {
 	private ArrayList<Drawable> GUI = new ArrayList<Drawable>();
 	public RvsB_World(BvsR_Map map) {
 		setMapData(map);
-		if (getGUI().isEmpty()) {
-			getGUI().add(
-					new Player_gauge(getMapData().getPlayer_one(), 0));
-			getGUI().add(
-					new Player_gauge(getMapData().getPlayer_two(),
-							Player_gauge.TOP_RIGHT));
-		}
+		//init gui here
 		setPlayers();
 	}
 	private void setPlayers() {
 		getPlayer_one().setMap(this);
-		getPlayer_one().setReloadSound("bluereload.wav");
-		getPlayer_two().setMap(this);
-		getPlayer_two().setReloadSound("redreload.wav");
 	}
 	public void addBullet(Bullet actor) {
 		getBullets().add(actor);

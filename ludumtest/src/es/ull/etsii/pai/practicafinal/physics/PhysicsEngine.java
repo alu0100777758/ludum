@@ -83,8 +83,6 @@ public class PhysicsEngine {
 			map = (Physical_passive) (getStaticMap().get(i));
 			if (map.collides(getMapData().getPlayer_one())/* )getPlayer_one().collides(map) */)
 				getMapData().getPlayer_one().repair_collision(map);
-			if (map.collides(getMapData().getPlayer_two())/* )getPlayer_one().collides(map) */)
-				getMapData().getPlayer_two().repair_collision(map);
 			for (int j = 0; j < getActors().size(); j++) {
 				if (getActors().get(j) instanceof Bullet) {
 					if (((Bullet) getActors().get(j)).collides(map))
