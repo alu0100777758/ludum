@@ -54,7 +54,7 @@ public class SceneManager extends JFrame {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			// TODO Auto-generated method stub
+			getCurrentScenario().moveMouse(e.getX(), e.getY());
 			
 		}
 
