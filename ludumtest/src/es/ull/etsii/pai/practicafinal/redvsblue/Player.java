@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.graphics.GraphicRectangle;
+import es.ull.etsii.pai.practicafinal.graphics.RotationRectangle;
 import es.ull.etsii.pai.practicafinal.metaclass.Weapon;
 import es.ull.etsii.pai.practicafinal.metaclass.gamemodeclasses.DefaultModeScoring;
 import es.ull.etsii.pai.practicafinal.metaclass.weapons.Knife;
@@ -45,8 +46,9 @@ public class Player extends Actor implements Physical_active {
 	private boolean move_right = false;						// True si se esta moviendo a la derecha.
 	private boolean crounched = false;						// True si esta agachado.
 	private boolean shooting = false;						// True si esta disparando.
-	
-	private PlayerData stats = new PlayerData(20, 1, 0, 20, 40, 5, -5.0, 0, 1,
+	private RotationRectangle torax;
+	private RotationRectangle legs;
+	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 5, -5.0, 0, 1,
 			150, 2, Color.BLUE, new String[] {"playerhit01.wav","playerhit02.wav","playerhit03.wav",});
 	private String reloadSound = "";
 	private boolean physicalResponseSuspended = false; 				// denota si se encuentran desactivadas la reparacion de colisiones.
@@ -66,9 +68,14 @@ public class Player extends Actor implements Physical_active {
 		setLookingAt(Side.RIGHT);
 		setPush(new Point2D(0, 0));
 		setJump(100, 0.33);
-		getGraphicShapes().add(
-				new GraphicRectangle((int) getPosition().x(),
-						(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
+		RotationRectangle torax = new RotationRectangle((int) getPosition().x(),
+				(int) getPosition().y(), stats.getWidth(), stats.getHeight());
+		setTorax(torax);
+//		RotationRectangle legs = new RotationRectangle((int) getPosition().x(),
+//				(int) getPosition().y(), stats.getWidth(), stats.getHeight());
+//		setTorax(legs);
+//		getGraphicShapes().add(legs);
+		getGraphicShapes().add(torax);
 		getGraphicShapes().get(stats.getBODY()).setPaint(Color.BLUE);
 		getGraphicShapes().add(null);
 		
@@ -656,5 +663,22 @@ public class Player extends Actor implements Physical_active {
 	public void setReloadSound(String reloadSound) {
 		this.reloadSound = reloadSound;
 	}
+
+	public RotationRectangle getTorax() {
+		return torax;
+	}
+
+	public void setTorax(RotationRectangle torax) {
+		this.torax = torax;
+	}
+
+	public RotationRectangle getLegs() {
+		return legs;
+	}
+
+	public void setLegs(RotationRectangle legs) {
+		this.legs = legs;
+	}
+	
 	
 }

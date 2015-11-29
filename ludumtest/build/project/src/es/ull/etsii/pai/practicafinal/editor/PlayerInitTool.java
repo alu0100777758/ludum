@@ -45,21 +45,12 @@ public class PlayerInitTool extends EditorTool {
 			if (getMap().getPlayer_one() == null) {
 				getMap().setPlayer_one(player);
 				player.getGraphicShapes().get(player.getStats().getBODY())
-						.setTexturePath("textures/blue.png");
+						.setTexturePath("textures/char_sprite.png");
 				player.getGraphicShapes().get(player.getStats().getBODY())
 						.setTextureAnchor(player.getPhysicalRectangle());
 				player.getGraphicShapes().get(player.getStats().getBODY()).setImage(true);
 				getMap().addActor(getMap().getPlayer_one());
-			} else if (getMap().getPlayer_two() == null) {
-				player.setColor(Color.RED);
-				getMap().setPlayer_two(player);
-				player.getGraphicShapes().get(player.getStats().getBODY())
-						.setTexturePath("textures/red.png");
-				player.getGraphicShapes().get(player.getStats().getBODY())
-						.setTextureAnchor(player.getPhysicalRectangle());
-				player.getGraphicShapes().get(player.getStats().getBODY()).setImage(true);
-				getMap().addActor(getMap().getPlayer_two());
-			}
+			} 
 		}
 	}
 	
