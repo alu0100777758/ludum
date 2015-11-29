@@ -221,12 +221,23 @@ public class Scenario {
 		 */
 		public void pulsedKey(int keyCode, char keyChar) {
 
+<<<<<<< HEAD
+=======
+			if (keyCode == getKeyMap().get(KeyActions.P2LEFT))
+				getPlayer_two().setLeft(true);
+			else if (keyCode == getKeyMap().get(KeyActions.P2RIGHT))
+				getPlayer_two().setRight(true);
+			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN))
+				getPlayer_two().setDown(true);
+			else if (keyCode == getKeyMap().get(KeyActions.P2UP))
+				getPlayer_two().setUP(true);
+>>>>>>> origin/master
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
-				getPlayer_one().jump();
+				getPlayer_one().setUP(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
@@ -261,6 +272,16 @@ public class Scenario {
 		 * @param keyChar
 		 */
 		public void releasedKey(int keyCode, char keyChar) {
+<<<<<<< HEAD
+=======
+			if (keyCode == getKeyMap().get(KeyActions.P2LEFT))
+				getPlayer_two().setLeft(false);
+			else if ((keyCode == getKeyMap().get(KeyActions.P2RIGHT)))
+				getPlayer_two().setRight(false);
+			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN)) {
+				getPlayer_two().setDown(false);
+			}
+>>>>>>> origin/master
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
@@ -269,8 +290,13 @@ public class Scenario {
 				// getPlayer_one().setUP(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(false);
-				getPlayer_one().setUP(true);
-			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
+			}
+			else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
+					getPlayer_one().setUP(false);
+			}else if (keyCode == getKeyMap().get(KeyActions.P2UP)) {
+				getPlayer_two().setUP(false);
+			} 
+			else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
 				getPlayer_one().stopShooting();
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTRIGHT)) {
 				getPlayer_one().stopShooting();
