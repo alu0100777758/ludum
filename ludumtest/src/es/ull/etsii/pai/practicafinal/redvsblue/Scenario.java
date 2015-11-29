@@ -260,9 +260,8 @@ public class Scenario {
 				getPlayer_one().setLeft(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(false);
-			} else if (keyChar == 'w') {
-				// getPlayer_one().setUP(false);
-			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
+			}
+			 else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(false);
 			}
 			else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
