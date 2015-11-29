@@ -221,14 +221,6 @@ public class Scenario {
 		 */
 		public void pulsedKey(int keyCode, char keyChar) {
 
-			if (keyCode == getKeyMap().get(KeyActions.P2LEFT))
-				getPlayer_two().setLeft(true);
-			else if (keyCode == getKeyMap().get(KeyActions.P2RIGHT))
-				getPlayer_two().setRight(true);
-			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN))
-				getPlayer_two().setDown(true);
-			else if (keyCode == getKeyMap().get(KeyActions.P2UP))
-				getPlayer_two().jump();
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
@@ -241,19 +233,11 @@ public class Scenario {
 				getPlayer_one().setLookingAt(Side.LEFT);
 				// getActors().add(getPlayer_one().shoot());
 				getPlayer_one().shoot();
-			} else if (keyCode == getKeyMap().get(KeyActions.P2SHOOTLEFT)) {
-				getPlayer_two().setLookingAt(Side.LEFT);
-				// getActors().add(getPlayer_two().shoot());
-				getPlayer_two().shoot();
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTRIGHT)) {
 				getPlayer_one().setLookingAt(Side.RIGHT);
 				// getActors().add(getPlayer_one().shoot());
 				getPlayer_one().shoot();
-			} else if (keyCode == getKeyMap().get(KeyActions.P2SHOOTRIGHT)) {
-				getPlayer_two().setLookingAt(Side.RIGHT);
-				// getActors().add(getPlayer_two().shoot());
-				getPlayer_two().shoot();
-			} else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
+			}  else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
 				pause();
 			} else if (keyCode == getKeyMap().get(KeyActions.MENU)) {
 				menu();
@@ -277,14 +261,6 @@ public class Scenario {
 		 * @param keyChar
 		 */
 		public void releasedKey(int keyCode, char keyChar) {
-			if (keyCode == getKeyMap().get(KeyActions.P2LEFT))
-				getPlayer_two().setLeft(false);
-			else if ((keyCode == getKeyMap().get(KeyActions.P2RIGHT)))
-				getPlayer_two().setRight(false);
-			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN)) {
-				getPlayer_two().setDown(false);
-				getPlayer_two().setUP(true);
-			}
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
@@ -296,13 +272,9 @@ public class Scenario {
 				getPlayer_one().setUP(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
 				getPlayer_one().stopShooting();
-			} else if (keyCode == getKeyMap().get(KeyActions.P2SHOOTLEFT)) {
-				getPlayer_two().stopShooting();
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTRIGHT)) {
 				getPlayer_one().stopShooting();
-			} else if (keyCode == getKeyMap().get(KeyActions.P2SHOOTRIGHT)) {
-				getPlayer_two().stopShooting();
-			}
+			} 
 		}
 	}
 

@@ -29,13 +29,6 @@ public class KeyController {
 		getKeyMap().put(KeyActions.P1SHOOTLEFT, KeyEvent.VK_J);
 		getKeyMap().put(KeyActions.P1SHOOTRIGHT, KeyEvent.VK_K);
 		
-		getKeyMap().put(KeyActions.P2LEFT, KeyEvent.VK_LEFT);
-		getKeyMap().put(KeyActions.P2DOWN, KeyEvent.VK_DOWN);
-		getKeyMap().put(KeyActions.P2RIGHT, KeyEvent.VK_RIGHT);
-		getKeyMap().put(KeyActions.P2UP, KeyEvent.VK_UP);
-		getKeyMap().put(KeyActions.P2SHOOTLEFT, KeyEvent.VK_NUMPAD2);
-		getKeyMap().put(KeyActions.P2SHOOTRIGHT, KeyEvent.VK_NUMPAD3);
-		
 	}
 	/**
 	 * Modifica la tecla con la que se realiza alguna accion
