@@ -79,11 +79,6 @@ public class Scenario {
 				setRedWins(true);
 				DefaultModeScoring.addWinningScore(getPlayer_two());
 			}
-			if (getPlayer_two().hasToDie()) {
-				setEnded(true);
-				setBlueWins(true);
-				DefaultModeScoring.addWinningScore(getPlayer_one());
-			}
 			if (isEnded()) {
 				AudioManager.stopAll();
 				AudioManager.startAudio(dieSounds[ResourceManager.getInstance()
