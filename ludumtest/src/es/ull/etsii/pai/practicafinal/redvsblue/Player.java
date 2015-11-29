@@ -29,7 +29,6 @@ public class Player extends Actor implements Physical_active {
 
 	private Point2D speed; 									// Vector velocidad.
 	private Point2D push;									// Vector de empuje.
-
 	private int score;										// puntuacion del jugador.
 	private int hp;											// Cantidad de vida actual.
 	private Side lookingAt;									// Lado al que se esta mirando.
@@ -114,16 +113,18 @@ public class Player extends Actor implements Physical_active {
 	 * @return
 	 */
 	private boolean moveUP() {
-		stats.setHeight(40);
-		getPosition().setY(getPosition().y() - stats.getHeight() / 2);
-
-		getGraphicShapes().get(stats.getBODY()).setLocation(
+	//	stats.setHeight(40);
+	//	getPosition().setY(getPosition().y() - stats.getHeight() / 2);
+		getSpeed().setY(-stats.getSPEED());
+	/*	getGraphicShapes().get(stats.getBODY()).setLocation(
 				new Point((int) getPosition().x(), (int) getPosition().y()));
 		getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(), stats.getHeight());
 		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(),
 				(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
-		setUP(false);
-		setCrounched(false);
+	*/
+		
+//		setUP(false);
+//		setCrounched(false);
 		return true;
 	}
 	
@@ -132,7 +133,7 @@ public class Player extends Actor implements Physical_active {
 	 * @return
 	 */
 	private boolean moveDown() {
-		getPosition().setY(getPosition().y() + stats.getHeight() / 2);
+/*		getPosition().setY(getPosition().y() + stats.getHeight() / 2);
 		stats.setHeight(20);
 		getGraphicShapes().get(stats.getBODY()).setLocation(
 				new Point((int) getPosition().x(), (int) getPosition().y()));
@@ -140,6 +141,8 @@ public class Player extends Actor implements Physical_active {
 		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(),
 				(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
 		setCrounched(true);
+		*/
+		getSpeed().setY(stats.getSPEED());
 		return true;
 	}
 	
@@ -296,7 +299,7 @@ public class Player extends Actor implements Physical_active {
 	 * Resuelve los movimientos que ha de realizar el jugador en el proximo frame.
 	 */
 	void ResolveUnreleasedMovements() {
-		if (isMove_down() && !isCrounched())
+		if (isMove_down())
 			moveDown();
 		if (isMove_left())
 			moveLeft();
@@ -307,6 +310,8 @@ public class Player extends Actor implements Physical_active {
 		setBlock_down(false);
 		if (!isMove_left() && !isMove_right())
 			getSpeed().setX(0);
+		if (!isMove_down() && !isMove_up())
+			getSpeed().setY(0);
 	}
 
 	/**
@@ -357,10 +362,10 @@ public class Player extends Actor implements Physical_active {
 	 * dando valor al jumpTTL
 	 */
 	public void jump() {
-		if (isBlock_down()) {
-			setJumpTTL(getMaxJumpTTL());
-			setBlock_down(false);
-		}
+	//	if (isBlock_down()) {
+	//		setJumpTTL(getMaxJumpTTL());
+	//		setBlock_down(false);
+	//	}
 	}
 
 	/**
@@ -368,8 +373,8 @@ public class Player extends Actor implements Physical_active {
 	 * saltar.
 	 */
 	public void moveJump() {
-		getSpeed().setY(-getClimbPertTick());
-		setJumpTTL(getJumpTTL() - 1);
+	//	getSpeed().setY(-getClimbPertTick());
+	//	setJumpTTL(getJumpTTL() - 1);
 
 	}
 
@@ -377,7 +382,7 @@ public class Player extends Actor implements Physical_active {
 	 * Hace caer al personaje segun marca la gravedad.
 	 */
 	public void fall() {
-		getSpeed().setY(-stats.getGRAVITY());
+		//getSpeed().setY(-stats.getGRAVITY());
 		setBlock_up(false);
 	}
 	/**

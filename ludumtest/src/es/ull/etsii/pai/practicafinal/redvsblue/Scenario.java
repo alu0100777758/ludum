@@ -233,13 +233,13 @@ public class Scenario {
 			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN))
 				getPlayer_two().setDown(true);
 			else if (keyCode == getKeyMap().get(KeyActions.P2UP))
-				getPlayer_two().jump();
+				getPlayer_two().setUP(true);
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
-				getPlayer_one().jump();
+				getPlayer_one().setUP(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
@@ -288,7 +288,6 @@ public class Scenario {
 				getPlayer_two().setRight(false);
 			else if (keyCode == getKeyMap().get(KeyActions.P2DOWN)) {
 				getPlayer_two().setDown(false);
-				getPlayer_two().setUP(true);
 			}
 			if (keyCode == getKeyMap().get(KeyActions.P1LEFT)) {
 				getPlayer_one().setLeft(false);
@@ -298,8 +297,13 @@ public class Scenario {
 				// getPlayer_one().setUP(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(false);
-				getPlayer_one().setUP(true);
-			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
+			}
+			else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
+					getPlayer_one().setUP(false);
+			}else if (keyCode == getKeyMap().get(KeyActions.P2UP)) {
+				getPlayer_two().setUP(false);
+			} 
+			else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
 				getPlayer_one().stopShooting();
 			} else if (keyCode == getKeyMap().get(KeyActions.P2SHOOTLEFT)) {
 				getPlayer_two().stopShooting();
