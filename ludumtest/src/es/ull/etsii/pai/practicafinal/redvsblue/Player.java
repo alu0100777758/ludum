@@ -345,6 +345,7 @@ public class Player extends Actor implements Physical_active {
 					// Y este 3 es la gravedad., lo paso a un metodo de actor
 					// para decirle q empiece a caer
 					fall();
+			//		;
 			}
 			// Aqui es donde realmente cambiamos la posicion una vez calculado
 			// donde va a ir.
