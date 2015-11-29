@@ -1,5 +1,6 @@
 package es.ull.etsii.pai.practicafinal.redvsblue;
 
+import java.awt.Color;
 /**
  * Progamacion de aplicaciones interactivas.
  * Universidad de La Laguna.
@@ -9,15 +10,14 @@ package es.ull.etsii.pai.practicafinal.redvsblue;
  *
  */
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.RepaintManager;
-
+import es.ull.etsii.pai.practicafinal.graphics.GraphicPoint;
 import es.ull.etsii.pai.practicafinal.main.MapSelector;
 import es.ull.etsii.pai.practicafinal.main.SceneManager;
-import es.ull.etsii.pai.practicafinal.metaclass.gamemodeclasses.DefaultModeScoring;
 import es.ull.etsii.pai.practicafinal.physics.Physical_passive;
 import es.ull.etsii.pai.practicafinal.physics.PhysicsEngine;
 
@@ -32,8 +32,8 @@ public class Scenario {
 	private boolean paused = false;
 	private RvsB_World world;
 	private PhysicsEngine physicEngine;
-	public static final String[] dieSounds = { "Idie01.wav", "Idie02.wav",
-			"Idie03.wav" };
+	private Point mousePosition = new Point(0, 0);
+	public static final String[] dieSounds = { "Idie01.wav", "Idie02.wav", "Idie03.wav" };
 
 	/**
 	 * Crea un escenario de alto y ancho definidos con un mapa determinado.
@@ -41,14 +41,14 @@ public class Scenario {
 	 * @param width
 	 * @param height
 	 * @param mapName
-	 * @param sceneManager 
+	 * @param sceneManager
 	 */
 	public Scenario(Integer width, Integer height, String mapName, SceneManager sceneManager) {
-//		setWidth(width);
-//		setHeight(height);
+		// setWidth(width);
+		// setHeight(height);
 		setScenemanager(sceneManager);
-//		System.out.println(sceneManager);
-//		AudioManager.reproduceAudio("Fall_Walk_Run_-_Do_or_Die.wav");
+		// System.out.println(sceneManager);
+		// AudioManager.reproduceAudio("Fall_Walk_Run_-_Do_or_Die.wav");
 		try {
 			setWorld(new RvsB_World(BvsR_Map.load(mapName)));
 		} catch (FileNotFoundException e) {
@@ -60,6 +60,8 @@ public class Scenario {
 			e.printStackTrace();
 		}
 		setPhysicEngine(new PhysicsEngine(getWorld()));
+		
+		new GraphicPoint(new Point(0, 0), Color.RED, 3);
 	}
 
 	/**
@@ -76,8 +78,8 @@ public class Scenario {
 					getStaticMap().remove(i);
 			if (isEnded()) {
 				AudioManager.stopAll();
-				AudioManager.startAudio(dieSounds[ResourceManager.getInstance()
-						.getRandGen().nextInt(dieSounds.length)]);
+				AudioManager
+						.startAudio(dieSounds[ResourceManager.getInstance().getRandGen().nextInt(dieSounds.length)]);
 				GameLoop.stepTimer.stop();
 			}
 		}
@@ -91,13 +93,11 @@ public class Scenario {
 	 */
 	public void paint(Graphics g) {
 		getWorld().paint(g);
+		new GraphicPoint(getMousePosition()).drawPoint(g.create());
 		if (isPaused()) {
 			ScreenManager sm = ScreenManager.getInstance();
-			g.drawImage(
-					ResourceManager.getInstance().getBufferedImage(
-							PAUSE_TEXTURE), 0, 0,
-					(int) (sm.getWindWidth() * sm.getRate_x()),
-					(int) (sm.getWindHeight() * sm.getRate_y()), null);
+			g.drawImage(ResourceManager.getInstance().getBufferedImage(PAUSE_TEXTURE), 0, 0,
+					(int) (sm.getWindWidth() * sm.getRate_x()), (int) (sm.getWindHeight() * sm.getRate_y()), null);
 		}
 	}
 
@@ -232,7 +232,7 @@ public class Scenario {
 				getPlayer_one().setLookingAt(Side.RIGHT);
 				// getActors().add(getPlayer_one().shoot());
 				getPlayer_one().shoot();
-			}  else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
+			} else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
 				pause();
 			} else if (keyCode == getKeyMap().get(KeyActions.MENU)) {
 				menu();
@@ -242,7 +242,7 @@ public class Scenario {
 		private void menu() {
 			GameLoop.stepTimer.stop();
 			getScenemanager().switchScenario(new MapSelector());
-			
+
 		}
 
 		private void pause() {
@@ -260,18 +260,15 @@ public class Scenario {
 				getPlayer_one().setLeft(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(false);
-			}
-			 else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
+			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(false);
-			}
-			else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
-					getPlayer_one().setUP(false);
-			} 
-			else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
+			} else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
+				getPlayer_one().setUP(false);
+			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTLEFT)) {
 				getPlayer_one().stopShooting();
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTRIGHT)) {
 				getPlayer_one().stopShooting();
-			} 
+			}
 		}
 	}
 
@@ -307,4 +304,11 @@ public class Scenario {
 		this.scenemanager = scenemanager;
 	}
 
+	public Point getMousePosition() {
+		return this.mousePosition;
+	}
+
+	public void setMousePosition(Point p) {
+		this.mousePosition = p;
+	}
 }

@@ -29,6 +29,9 @@ public abstract class ScenarioPanel extends JPanel {
 		
 	}
 
+	public void moveMouse(int x, int y) {
+		
+	}
 	public abstract void sizeUpdate();
 	
 }

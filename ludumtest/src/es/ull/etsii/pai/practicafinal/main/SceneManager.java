@@ -11,6 +11,8 @@ package es.ull.etsii.pai.practicafinal.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ public class SceneManager extends JFrame {
 	public SceneManager() {
 		super();
 		this.addKeyListener(new KeyHandler());
+		this.addMouseMotionListener(new MouseMotionHandler());
 		// setCurrentScenario(scenario);
 		// add(getCurrentScenario());
 		// scenario.setSceneManager(this);
@@ -47,7 +50,20 @@ public class SceneManager extends JFrame {
 	public void setCurrentScenario(ScenarioPanel currentScenario) {
 		this.currentScenario = currentScenario;
 	}
+	class MouseMotionHandler implements MouseMotionListener {
 
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			getCurrentScenario().moveMouse(e.getX(), e.getY());
+		}
+		
+	}
 	/**
 	 * Manejador de teclas.
 	 * 
@@ -75,7 +91,7 @@ public class SceneManager extends JFrame {
 		}
 
 	}
-
+	
 	public void notify_resize() {
 		getCurrentScenario().sizeUpdate();
 	}

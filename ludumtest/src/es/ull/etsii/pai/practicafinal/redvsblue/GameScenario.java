@@ -8,16 +8,10 @@ package es.ull.etsii.pai.practicafinal.redvsblue;
  *
  */
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JPanel;
 
 import es.ull.etsii.pai.practicafinal.main.SceneManager;
 import es.ull.etsii.pai.practicafinal.scenes.WinnerScene;
@@ -71,6 +65,13 @@ public class GameScenario extends ScenarioPanel{
 	public void releasedKey(int keyCode, char keyChar) {
 		getScenario().getKeyController().releasedKey(keyCode, keyChar);
 	}
+
+	
+	@Override
+	public void moveMouse(int x, int y) {
+		getScenario().setMousePosition(new Point(x, y));
+	}
+
 
 	class GameLoopHandler implements ActionListener {
 
