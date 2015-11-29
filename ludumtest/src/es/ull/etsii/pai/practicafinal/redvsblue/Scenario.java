@@ -74,11 +74,6 @@ public class Scenario {
 			for (int i = 0; i < getStaticMap().size(); i++)
 				if (((Physical_passive) getStaticMap().get(i)).hasToDie())
 					getStaticMap().remove(i);
-			if (getPlayer_one().hasToDie()) {
-				setEnded(true);
-				setRedWins(true);
-				DefaultModeScoring.addWinningScore(getPlayer_two());
-			}
 			if (isEnded()) {
 				AudioManager.stopAll();
 				AudioManager.startAudio(dieSounds[ResourceManager.getInstance()
