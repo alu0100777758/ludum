@@ -7,8 +7,8 @@ package es.ull.etsii.pai.practicafinal.lwjglImplement.redvsblue;
  * @author Javier Martin Hernandez alu0100777758@ull.edu.es
  *
  */
-import javafx.scene.media.AudioClip;
-
+//import javafx.scene.media.AudioClip;
+// mirar http://www.programcreek.com/java-api-examples/index.php?api=org.lwjgl.util.WaveData
 import java.util.ArrayList;
 
 import java.nio.FloatBuffer;
@@ -16,10 +16,7 @@ import java.nio.IntBuffer;
  
 import org.lwjgl.BufferUtils;
 //import org.lwjgl.LWJGLException;
-import org.lwjgl.openal.AL;
-import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
-import org.lwjgl.openal.;
 
 public class OA_AudioManager {
 	public static final String SOUNDS_FOLDER = "/sounds/";
@@ -29,7 +26,7 @@ public class OA_AudioManager {
 	private static boolean sfx = true;											// Determina si estan activados los efectos de sonido.
 	private static boolean music = true;										// Determina si esta activada la musica TODO cambiar el comportamiento por defecto 
 														//	(por defecto desactivada por comodidad durante desarrollo)
-	private WaveDa wavEffect;
+	private Wa wavEffect;
 	public static void init(){
 		try {
 
