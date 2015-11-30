@@ -1,4 +1,5 @@
 package es.ull.etsii.pai.practicafinal.redvsblue;
+
 /**
  * Progamacion de aplicaciones interactivas.
  * Universidad de La Laguna.
@@ -27,33 +28,43 @@ import es.ull.etsii.pai.prct9.geometry.Segment;
 public class Player extends Actor implements Physical_active {
 	private static final long serialVersionUID = -3033119409170313204L;
 
-
-	private Point2D speed; 									// Vector velocidad.
-	private Point2D push;									// Vector de empuje.
-	private int score;										// puntuacion del jugador.
-	private int hp;											// Cantidad de vida actual.
-	private Side lookingAt;									// Lado al que se esta mirando.
-	private Weapon weapon;									// Arma actual.
-	private RvsB_World map;									// Mapa en que se encuentra el jugador.
-	private boolean dead = false;							// True si esta muerto.
-	private boolean block_up = false;						// True si no se puede mover hacia arriba.
-	private boolean block_down = false;						// True si no se puede mover hacia abajo.
-	private boolean block_left = false;						// True si no se puede mover a la izquierda.
-	private boolean block_right = false;					// True si no se puede mover a la derecha.
-	private boolean move_up = false;						// True si esta saltando.
-	private boolean move_down = false;						// True si se esta agachando.
-	private boolean move_left = false;						// True si se esta moviendo a la izquierda. 
-	private boolean move_right = false;						// True si se esta moviendo a la derecha.
-	private boolean crounched = false;						// True si esta agachado.
-	private boolean shooting = false;						// True si esta disparando.
+	private Point2D speed; // Vector velocidad.
+	private Point2D push; // Vector de empuje.
+	private int score; // puntuacion del jugador.
+	private int hp; // Cantidad de vida actual.
+	private Side lookingAt; // Lado al que se esta mirando.
+	private Weapon weapon; // Arma actual.
+	private RvsB_World map; // Mapa en que se encuentra el jugador.
+	private boolean dead = false; // True si esta muerto.
+	private boolean block_up = false; // True si no se puede mover hacia arriba.
+	private boolean block_down = false; // True si no se puede mover hacia
+										// abajo.
+	private boolean block_left = false; // True si no se puede mover a la
+										// izquierda.
+	private boolean block_right = false; // True si no se puede mover a la
+											// derecha.
+	private boolean move_up = false; // True si esta saltando.
+	private boolean move_down = false; // True si se esta agachando.
+	private boolean move_left = false; // True si se esta moviendo a la
+										// izquierda.
+	private boolean move_right = false; // True si se esta moviendo a la
+										// derecha.
+	private boolean crounched = false; // True si esta agachado.
+	private boolean shooting = false; // True si esta disparando.
 	private RotationRectangle torax;
 	private RotationRectangle legs;
-	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 5, -5.0, 0, 1,
-			150, 2, Color.BLUE, new String[] {"playerhit01.wav","playerhit02.wav","playerhit03.wav",});
+	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 5, -5.0, 0, 1, 150, 2, Color.BLUE,
+			new String[] { "playerhit01.wav", "playerhit02.wav", "playerhit03.wav", });
 	private String reloadSound = "";
-	private boolean physicalResponseSuspended = false; 				// denota si se encuentran desactivadas la reparacion de colisiones.
+	private boolean physicalResponseSuspended = false; // denota si se
+														// encuentran
+														// desactivadas la
+														// reparacion de
+														// colisiones.
+
 	/**
 	 * Crea un jugador en la posicion dada en el mapa dado.
+	 * 
 	 * @param position
 	 * @param map
 	 */
@@ -62,41 +73,65 @@ public class Player extends Actor implements Physical_active {
 		setHp(stats.getDEFAULT_MAX_HP());
 		setMaxHp(stats.getDEFAULT_MAX_HP());
 		setMap(map);
-		setSpeed(new Point2D(0, 0));
-		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(),
-				(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
+		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(), (int) getPosition().y(), stats.getWidth(),
+				stats.getHeight()));
 		setLookingAt(Side.RIGHT);
 		setPush(new Point2D(0, 0));
 		setJump(100, 0.33);
-		RotationRectangle torax = new RotationRectangle((int) getPosition().x(),
-				(int) getPosition().y(), stats.getWidth(), stats.getHeight());
+		RotationRectangle torax = new RotationRectangle((int) getPosition().x(), (int) getPosition().y(),
+				stats.getWidth(), stats.getHeight());
 		setTorax(torax);
-//		RotationRectangle legs = new RotationRectangle((int) getPosition().x(),
-//				(int) getPosition().y(), stats.getWidth(), stats.getHeight());
-//		setTorax(legs);
-//		getGraphicShapes().add(legs);
+		getTorax().setPaint(Color.BLUE);
 		getGraphicShapes().add(torax);
-		getGraphicShapes().get(stats.getBODY()).setPaint(Color.BLUE);
-		getGraphicShapes().add(null);
-		
+
+		RotationRectangle legs = new RotationRectangle((int) getPosition().x(), (int) getPosition().y(),
+				stats.getWidth(), stats.getHeight());
+		setLegs(legs);
+		getGraphicShapes().add(legs);
+		getLegs().setPaint(Color.RED);
+		// getGraphicShapes().get(stats.getBODY()).setPaint(Color.BLUE);
+		// getGraphicShapes().add(null);
+
 		setScore(0);
-//		setWeapon(new RocketLauncher(this));
+		// setWeapon(new RocketLauncher(this));
 		setWeapon(new Knife(this));
+		setSpeed(new Point2D(0, 0));
+	}
+
+	public void updateToraxRotation(Point p) {
+		double deltaX = p.getX() - getPosition().x();
+		double deltaY = getPosition().y() - p.getY();
+		double degre = Math.atan2(deltaX, deltaY);
+		// System.out.println("degree: " + degre+ " xdif: "+deltaX + " ydif: "
+		// +deltaY);
+		getTorax().setRotationg(Math.toDegrees(degre));
+	}
+
+	public void updateLegsRotation(Point2D p) {
+//		System.out.println("pos:" + getPosition()+ "     Vvector" + p);
+			double deltaX = p.x() - getPosition().x();
+			double deltaY = getPosition().y() - p.y();
+			double degre = Math.atan2(deltaX, deltaY);
+//			 System.out.println("degree: " + degre+ " xdif: "+deltaX + " ydif:" +deltaY);
+			getLegs().setRotationg(Math.toDegrees(degre));
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		for (int i = 0; i < getGraphicShapes().size(); i++)
-			getGraphicShapes().get(i).paint(g.create());
+		getLegs().paint(g);
+		getTorax().paint(g);
+//		for (int i = 0; i < getGraphicShapes().size(); i++)
+//			getGraphicShapes().get(i).paint(g.create());
 	}
 
 	@Override
 	public boolean hasToDie() {
 		return isDead();
 	}
-	
+
 	/**
 	 * Mueve el jugador a la izquierda.
+	 * 
 	 * @return
 	 */
 	private boolean moveLeft() {
@@ -104,9 +139,10 @@ public class Player extends Actor implements Physical_active {
 		setBlock_right(false);
 		return true;
 	}
-	
+
 	/**
 	 * Mueve el jugador a la derecha.
+	 * 
 	 * @return
 	 */
 	private boolean moveRight() {
@@ -114,45 +150,50 @@ public class Player extends Actor implements Physical_active {
 		setBlock_left(false);
 		return true;
 	}
-	
+
 	/**
 	 * Levanta al jugador.
+	 * 
 	 * @return
 	 */
 	private boolean moveUP() {
-	//	stats.setHeight(40);
-	//	getPosition().setY(getPosition().y() - stats.getHeight() / 2);
+		// stats.setHeight(40);
+		// getPosition().setY(getPosition().y() - stats.getHeight() / 2);
 		getSpeed().setY(-stats.getSPEED());
-	/*	getGraphicShapes().get(stats.getBODY()).setLocation(
-				new Point((int) getPosition().x(), (int) getPosition().y()));
-		getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(), stats.getHeight());
-		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(),
-				(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
-	*/
-		
-//		setUP(false);
-//		setCrounched(false);
+		/*
+		 * getGraphicShapes().get(stats.getBODY()).setLocation( new Point((int)
+		 * getPosition().x(), (int) getPosition().y()));
+		 * getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(),
+		 * stats.getHeight()); setPhysicalShape(new PhysicalRectangle((int)
+		 * getPosition().x(), (int) getPosition().y(), stats.getWidth(),
+		 * stats.getHeight()));
+		 */
+
+		// setUP(false);
+		// setCrounched(false);
 		return true;
 	}
-	
+
 	/**
 	 * Hace que el jugador se agache.
+	 * 
 	 * @return
 	 */
 	private boolean moveDown() {
-/*		getPosition().setY(getPosition().y() + stats.getHeight() / 2);
-		stats.setHeight(20);
-		getGraphicShapes().get(stats.getBODY()).setLocation(
-				new Point((int) getPosition().x(), (int) getPosition().y()));
-		getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(), stats.getHeight());
-		setPhysicalShape(new PhysicalRectangle((int) getPosition().x(),
-				(int) getPosition().y(), stats.getWidth(), stats.getHeight()));
-		setCrounched(true);
-		*/
+		/*
+		 * getPosition().setY(getPosition().y() + stats.getHeight() / 2);
+		 * stats.setHeight(20);
+		 * getGraphicShapes().get(stats.getBODY()).setLocation( new Point((int)
+		 * getPosition().x(), (int) getPosition().y()));
+		 * getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(),
+		 * stats.getHeight()); setPhysicalShape(new PhysicalRectangle((int)
+		 * getPosition().x(), (int) getPosition().y(), stats.getWidth(),
+		 * stats.getHeight())); setCrounched(true);
+		 */
 		getSpeed().setY(stats.getSPEED());
 		return true;
 	}
-	
+
 	/**
 	 * Hace que el jugador dispare.
 	 */
@@ -160,7 +201,7 @@ public class Player extends Actor implements Physical_active {
 		getWeapon().triggerMain();
 		setShooting(true);
 	}
-	
+
 	/**
 	 * Hace que deje de disparar.
 	 */
@@ -189,8 +230,7 @@ public class Player extends Actor implements Physical_active {
 	public void setLocation(int x, int y) {
 		super.setPosition(new Point2D(x, y));
 		for (GraphicRectangle graphics : getGraphicShapes())
-			graphics.setLocation(new Point((int) getPosition().x(),
-					(int) getPosition().y()));
+			graphics.setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
 	};
 
 	/**
@@ -198,10 +238,9 @@ public class Player extends Actor implements Physical_active {
 	 */
 	@Override
 	public boolean repair_collision(Physical_passive actor) {
-		if(isPhysicalResponseSuspended())
+		if (isPhysicalResponseSuspended())
 			return true;
-		Rectangle intersection = actor.getCollisionedRectangle(this
-				.getPhysicalRectangle());
+		Rectangle intersection = actor.getCollisionedRectangle(this.getPhysicalRectangle());
 		boolean repaired = false;
 		if (intersection.isEmpty())
 			return true;
@@ -210,51 +249,51 @@ public class Player extends Actor implements Physical_active {
 		// Miramos si colisiona con la cabeza o los pies:
 
 		// Si alguno es true colisiona con la cabeza.
-		if ((actor.getPhysicalRectangle().contains(
-				new Point((int) getPhysicalRectangle().getMinX(),
-						(int) getPhysicalRectangle().getMinY())) || actor
-				.getPhysicalRectangle().contains(
-						new Point((int) getPhysicalRectangle().getMaxX(),
-								(int) getPhysicalRectangle().getMinY())))
+		if ((actor.getPhysicalRectangle()
+				.contains(new Point((int) getPhysicalRectangle().getMinX(), (int) getPhysicalRectangle().getMinY()))
+				|| actor.getPhysicalRectangle().contains(
+						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMinY())))
 				&& !isBlock_down()) {
 			if (Math.abs(getSpeed().y()) >= intersection.getHeight()) {
-				this.setPosition(getPosition().add(
-						new Point2D(0, intersection.getHeight()))); // Tocado
-																	// con la
-																	// cabeza
+				this.setPosition(getPosition().add(new Point2D(0, intersection.getHeight()))); // Tocado
+																								// con
+																								// la
+																								// cabeza
 				repaired = true;
 				setJumpTTL(0);
 				setBlock_up(true);
 			}
 		}
 		// Si alguno es true colisiona con los pies.
-		else if ((actor.getPhysicalRectangle().contains(
-				new Point((int) getPhysicalRectangle().getMinX(),
-						(int) getPhysicalRectangle().getMaxY())) || actor
-				.getPhysicalRectangle().contains(
-						new Point((int) getPhysicalRectangle().getMaxX(),
-								(int) getPhysicalRectangle().getMaxY())))
+		else if ((actor.getPhysicalRectangle()
+				.contains(new Point((int) getPhysicalRectangle().getMinX(), (int) getPhysicalRectangle().getMaxY()))
+				|| actor.getPhysicalRectangle().contains(
+						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMaxY())))
 				&& !isBlock_up()) {
 			if (Math.abs(getSpeed().y()) >= intersection.getHeight() && !isBlock_down()) {
-				this.setPosition(getPosition().add(
-						new Point2D(0, -intersection.getHeight())));// Tocado
-																	// con los
-																	// pies.
+				this.setPosition(getPosition().add(new Point2D(0, -intersection.getHeight())));// Tocado
+																								// con
+																								// los
+																								// pies.
 				repaired = true;
 				setBlock_down(true);
 			}
 		}
 		if (!repaired) {
-			if (Math.abs(2 * getSpeed().add(getPush()).x()) >= intersection
-					.getWidth()) { // Comentar esto, buscar solucion mejor que
-									// multiplicar por 2.
+			if (Math.abs(2 * getSpeed().add(getPush()).x()) >= intersection.getWidth()) { // Comentar
+																							// esto,
+																							// buscar
+																							// solucion
+																							// mejor
+																							// que
+																							// multiplicar
+																							// por
+																							// 2.
 				if (getSpeed().add(getPush()).x() > 0) {
-					this.setPosition(getPosition().substract(
-							intersection.getWidth(), 0));
+					this.setPosition(getPosition().substract(intersection.getWidth(), 0));
 					setBlock_right(true);
 				} else {
-					this.setPosition(getPosition().add(intersection.getWidth(),
-							0));
+					this.setPosition(getPosition().add(intersection.getWidth(), 0));
 					setBlock_left(true);
 				}
 
@@ -267,13 +306,14 @@ public class Player extends Actor implements Physical_active {
 
 	/**
 	 * Realiza las operaciones necesarias cuando es golpeado por una bala.
+	 * 
 	 * @param bullet
 	 */
 	public void gotHit(Bullet bullet) {
 		if (bullet.getOwner() != this) {
 			DefaultModeScoring.addHitScore(bullet.getOwner());
 			AudioManager.startAudio(bullet.getSoundName());
-			if(!isDead())
+			if (!isDead())
 				AudioManager.startAudio(getSoundName());
 			setHp(getHp() - bullet.getDamage());
 			if (bullet.getSpeed().x() > 0)
@@ -284,8 +324,6 @@ public class Player extends Actor implements Physical_active {
 				die();
 		}
 	}
-
-
 
 	/**
 	 * Realiza las operaciones necesarias para que el jugador muera.
@@ -303,7 +341,8 @@ public class Player extends Actor implements Physical_active {
 	}
 
 	/**
-	 * Resuelve los movimientos que ha de realizar el jugador en el proximo frame.
+	 * Resuelve los movimientos que ha de realizar el jugador en el proximo
+	 * frame.
 	 */
 	void ResolveUnreleasedMovements() {
 		if (isMove_down())
@@ -334,13 +373,13 @@ public class Player extends Actor implements Physical_active {
 	}
 
 	/**
-	 * Mueve el jugador segun marca la velocidad y actualiza el disparo del
-	 * arma .
+	 * Mueve el jugador segun marca la velocidad y actualiza el disparo del arma
+	 * .
 	 */
 	@Override
 	public boolean updatePos(Physical_passive map) {
 		if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
-				return false;
+			return false;
 		if (!isDead()) {
 			ResolveUnreleasedMovements();
 			getWeapon().update();
@@ -352,14 +391,14 @@ public class Player extends Actor implements Physical_active {
 					// Y este 3 es la gravedad., lo paso a un metodo de actor
 					// para decirle q empiece a caer
 					fall();
-			//		;
+				// ;
 			}
 			// Aqui es donde realmente cambiamos la posicion una vez calculado
 			// donde va a ir.
-			getGraphicShapes().get(stats.getBODY())
-					.setLocation(
-							new Point((int) getPosition().x(),
-									(int) getPosition().y()));
+			updateLegsRotation(getSpeed().add(getPosition()));
+			getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
+			setPosition(getPosition().add(getSpeed().add(getPush())));
+					getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
 			setPosition(getPosition().add(getSpeed().add(getPush()))); // CAmbiado;
 		}
 		return true;
@@ -370,10 +409,10 @@ public class Player extends Actor implements Physical_active {
 	 * dando valor al jumpTTL
 	 */
 	public void jump() {
-	//	if (isBlock_down()) {
-	//		setJumpTTL(getMaxJumpTTL());
-	//		setBlock_down(false);
-	//	}
+		// if (isBlock_down()) {
+		// setJumpTTL(getMaxJumpTTL());
+		// setBlock_down(false);
+		// }
 	}
 
 	/**
@@ -381,8 +420,8 @@ public class Player extends Actor implements Physical_active {
 	 * saltar.
 	 */
 	public void moveJump() {
-	//	getSpeed().setY(-getClimbPertTick());
-	//	setJumpTTL(getJumpTTL() - 1);
+		// getSpeed().setY(-getClimbPertTick());
+		// setJumpTTL(getJumpTTL() - 1);
 
 	}
 
@@ -390,16 +429,19 @@ public class Player extends Actor implements Physical_active {
 	 * Hace caer al personaje segun marca la gravedad.
 	 */
 	public void fall() {
-		//getSpeed().setY(-stats.getGRAVITY());
+		// getSpeed().setY(-stats.getGRAVITY());
 		setBlock_up(false);
 	}
+
 	/**
 	 * Añade una cantidad a la puntuacion.
+	 * 
 	 * @param value
 	 */
 	public void addToScore(int value) {
-		setScore(getScore() + value); 
+		setScore(getScore() + value);
 	}
+
 	@Override
 	public PhysicalRectangle getPhysicalRectangle() {
 		return getPhysicalShape();
@@ -408,17 +450,18 @@ public class Player extends Actor implements Physical_active {
 
 	@Override
 	public Rectangle getCollisionedRectangle(Physical_passive actor) {
-		return getPhysicalRectangle().getCollisionedRectangle(
-				actor.getPhysicalRectangle());
+		return getPhysicalRectangle().getCollisionedRectangle(actor.getPhysicalRectangle());
 	}
 
 	@Override
 	public ArrayList<Segment> getSegmentList() {
 		return getPhysicalShape().getSegmentList();
 	}
-	public void playReload(){
+
+	public void playReload() {
 		AudioManager.reproduceAudio(getReloadSound());
 	}
+
 	/**
 	 * Getters y Setters.
 	 * 
@@ -628,6 +671,7 @@ public class Player extends Actor implements Physical_active {
 	public void setColor(Color color) {
 		this.stats.setColor(color);
 	}
+
 	private String getSoundName() {
 		return stats.getHitSounds()[ResourceManager.getInstance().getRandGen().nextInt(stats.getHitSounds().length)];
 	}
@@ -679,6 +723,5 @@ public class Player extends Actor implements Physical_active {
 	public void setLegs(RotationRectangle legs) {
 		this.legs = legs;
 	}
-	
-	
+
 }

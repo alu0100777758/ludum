@@ -9,6 +9,7 @@ package es.ull.etsii.pai.practicafinal.redvsblue;
  */
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public class Actor extends Entity {
 	 */
 	public Actor(Point2D position) {
 		physicalShape = new PhysicalRectangle((int)position.x(), (int)position.y(), 10, 20); // cambiar!
-		setPosition(position);
 		setGraphicShapes(new ArrayList<GraphicRectangle>());
+		setPosition(position);
 	}
 	/**
 	 * Funcion de morir. 
@@ -77,6 +78,10 @@ public class Actor extends Entity {
 	public void setPosition(Point2D position) {
 		this.position = position;
 		this.physicalShape.setLocation((int)position.x(), (int)position.y());
+//		for(GraphicRectangle rect : getGraphicShapes()){
+//			Point npos = new Point((int)(rect.getLocation().getX() + position.x()),(int)(rect.getLocation().getY() + position.y()));
+//			rect.setLocation(npos);
+//		}
 	}
 	public void setXPosition(double xposition) {
 		this.position.setX(xposition);

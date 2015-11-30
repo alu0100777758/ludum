@@ -11,7 +11,7 @@ import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 
 public class RotationRectangle extends GraphicRectangle {
 	private static final long serialVersionUID = -2828798826897107548L;
-	private int rotationg = 60;
+	private double rotationg = 0;
 	public RotationRectangle(int x1, int y1, int width, int height) {
 		super(x1, y1, width, height);
 		// TODO Auto-generated constructor stub
@@ -22,7 +22,7 @@ public class RotationRectangle extends GraphicRectangle {
 	 * @param grades
 	 * @return	BufferedImage
 	 */
-	public BufferedImage rotate(BufferedImage image, int grades) {
+	public BufferedImage rotate(BufferedImage image, double grades) {
 		double rotationRequired = Math.toRadians(grades);
 		double locationX = image.getWidth() / 2;
 		double locationY = image.getHeight() / 2;
@@ -44,10 +44,10 @@ public class RotationRectangle extends GraphicRectangle {
 					(int) (getWidth() * xrate), (int) (getHeight() * yrate),
 					null);
 	}
-	public int getRotationg() {
+	public double getRotationg() {
 		return rotationg;
 	}
-	public void setRotationg(int rotation) {
-		this.rotationg = rotation;
+	public void setRotationg(double d) {
+		this.rotationg = d;
 	}
 }

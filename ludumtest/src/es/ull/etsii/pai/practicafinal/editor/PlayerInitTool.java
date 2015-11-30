@@ -45,10 +45,9 @@ public class PlayerInitTool extends EditorTool {
 			if (getMap().getPlayer_one() == null) {
 				getMap().setPlayer_one(player);
 				player.getTorax().setTexturePath("textures/char_sprite.png");
-				player.getGraphicShapes().get(player.getStats().getBODY())
-						.setTextureAnchor(player.getPhysicalRectangle());
-				player.getGraphicShapes().get(player.getStats().getBODY()).setImage(true);
-//				player.getLegs().setTexturePath("textures/legs_sprite.png");
+				player.getLegs().setTexturePath("textures/leg_right_sprite.png");
+//				player.getTorax().setTexturePath("textures/leg_right_sprite.png");
+
 				getMap().addActor(getMap().getPlayer_one());
 			}
 		}

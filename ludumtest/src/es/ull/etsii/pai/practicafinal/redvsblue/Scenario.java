@@ -310,5 +310,6 @@ public class Scenario {
 
 	public void setMousePosition(Point p) {
 		this.mousePosition = p;
+		getWorld().getPlayer_one().updateToraxRotation(p);
 	}
 }
