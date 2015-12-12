@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.Player;
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
 
 /**
@@ -33,14 +34,15 @@ public class PlayerInitTool extends EditorTool {
 			add(e);
 	}
 
-	public void add(MouseEvent e) {
-		addPlayer(new Player(new Point2D(e.getX(), e.getY()), null));
+	protected void add(MouseEvent e) {
+		ScreenManager scr =  ScreenManager.getInstance();
+		addPlayer(new Player(new Point2D(e.getX() - scr.getOffset_x() , e.getY()- scr.getOffset_y()), null));
 		setModified(true);
 	}
 	/**
 	 * @param player metodo que inserta el jugador en el mapa
 	 */
-	public void addPlayer(Player player) {
+	protected void addPlayer(Player player) {
 		if (player != null) {
 			if (getMap().getPlayer_one() == null) {
 				getMap().setPlayer_one(player);

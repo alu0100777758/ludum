@@ -4,11 +4,13 @@ import java.awt.event.MouseEvent;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.BasicEnemy;
 import es.ull.etsii.pai.practicafinal.redvsblue.Player;
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
 
 public class EnemyTool extends PlayerInitTool {
 	public void add(MouseEvent e) {
-		addPlayer(new BasicEnemy(new Point2D(e.getX(), e.getY()), null));
+		ScreenManager scr = ScreenManager.getInstance();
+		addPlayer(new BasicEnemy(new Point2D(e.getX() - scr.getOffset_x() , e.getY()- scr.getOffset_y()), null));
 		setModified(true);
 	}
 	public void addPlayer(Player player) {
