@@ -61,7 +61,7 @@ public class BasicEnemy extends Player {
 	}
 	private void calculateSpeed() {
 		double difX = target.x() - getPosition().x();
-		double difY = target.y() - getPosition().y();
+		double difY = getPosition().y() - target.y() ;
 		double angle = Math.atan2(difX, difY);
 		
 		getSpeed().setX(Math.cos(angle - Math.toRadians(90)) * stats.getSPEED());
@@ -153,6 +153,14 @@ public class BasicEnemy extends Player {
 
 	protected void setTarget(Point2D target) {
 		this.target = target;
+	}
+
+	protected boolean isHasToStartWait() {
+		return hasToStartWait;
+	}
+
+	protected void setHasToStartWait(boolean hasToStartWait) {
+		this.hasToStartWait = hasToStartWait;
 	}
 
 	

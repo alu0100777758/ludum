@@ -17,8 +17,8 @@ public class FollowerEnemy extends BasicEnemy {
 	protected void calculateNextTarget() {
 		if (!playerInVision())
 			super.calculateNextTarget();
-		
-		setTarget(getMap().getMapData().getPlayer_one().getPosition());
+		else
+			setTarget(getMap().getMapData().getPlayer_one().getPosition());
 		calculateMinMax();
 	}
 
@@ -29,9 +29,12 @@ public class FollowerEnemy extends BasicEnemy {
 		if(hasTo)
 			return hasTo;
 		
-		if (playerInVision())
+		if (playerInVision()) {
 			setHasToSelectTarget(true);
-		return true;
+			setHasToStartWait(false);
+			return true;
+		}
+		return false;
 	}
 	
 	private boolean playerInVision() {
