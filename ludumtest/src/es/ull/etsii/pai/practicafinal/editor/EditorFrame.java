@@ -181,7 +181,7 @@ public class EditorFrame extends JFrame implements ActionListener,
 			 	frame.setVisible(true);
 			 	frame.switchScenario(
 						new GameScenario(TEMP_FILE_MAP,new SceneManager()));
-			 	frame.setResizable(false);
+			 	frame.setResizable(true);
 				frame.addWindowListener(new WindowAdapter()
 		        {
 		            @Override
