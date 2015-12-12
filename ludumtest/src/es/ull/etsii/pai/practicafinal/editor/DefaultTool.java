@@ -8,10 +8,12 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.plaf.SeparatorUI;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.Actor;
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
@@ -474,6 +476,13 @@ public class DefaultTool extends EditorTool {
 	}
 	public void setMoveMode(boolean moveMode) {
 		this.moveMode = moveMode;
+	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		ScreenManager scr = ScreenManager.getInstance();
+		scr.setRate_x(scr.getRate_x() - 0.1*arg0.getWheelRotation());
+		scr.setRate_y(scr.getRate_y() - 0.1*arg0.getWheelRotation());
+//		System.out.println("wheel: "+arg0.getWheelRotation() + "rates:" + scr.getRate_x()+"  "+scr.getRate_y());
 	}
 	
 }

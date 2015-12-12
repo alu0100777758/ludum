@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedOutputStream;
@@ -46,7 +48,7 @@ import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
  * Ventana del editor
  */
 public class EditorFrame extends JFrame implements ActionListener,
-		MouseListener, MouseMotionListener, KeyEventDispatcher {
+		MouseListener, MouseMotionListener ,MouseWheelListener, KeyEventDispatcher {
 	private static final String SAVE_TOOLTIP = "Guardar el nivel";
 	private static final String MENU_SAVE_STRING = "guardar";
 	private static final long serialVersionUID = -5172144293412925652L;
@@ -79,12 +81,13 @@ public class EditorFrame extends JFrame implements ActionListener,
 		bottomPanel.setGuiActive(false);
 		bottomPanel.addMouseListener(this);
 		bottomPanel.addMouseMotionListener(this);
+		bottomPanel.addMouseWheelListener(this);
 		this.add(bottomPanel, BorderLayout.CENTER);
 		createMenuBar();
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(this);    
         pack();
-        setResizable(true);
+
         ScreenManager.getInstance().reset();
 	}
 
@@ -288,5 +291,11 @@ public class EditorFrame extends JFrame implements ActionListener,
 		}
 		repaint();
 		return false;
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		toolbar.getSelectedTool().mouseWheelMoved(e);
+		repaint();
 	}
 }

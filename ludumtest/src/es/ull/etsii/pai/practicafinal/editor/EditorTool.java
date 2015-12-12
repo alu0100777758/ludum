@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
  *
  */
 public abstract class EditorTool implements ActionListener, MouseListener,
-		MouseMotionListener, KeyListener {
+		MouseMotionListener, MouseWheelListener, KeyListener {
 	private JButton button;					//	bot�n que representar� a la herramienta
 	private int toolid = 0;					//	identificador de la herramienta para ser identificada por el editor
 	private BvsR_Map map = null;			//	mapa sobre el que trabajar� la herramienta
