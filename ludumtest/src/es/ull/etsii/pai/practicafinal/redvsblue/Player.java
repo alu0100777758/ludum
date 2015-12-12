@@ -164,50 +164,6 @@ public class Player extends Actor implements Physical_active {
 		return true;
 	}
 
-	/**
-	 * Levanta al jugador.
-	 * 
-	 * @return
-	 */
-	private boolean moveUP() {
-		// stats.setHeight(40);
-		// getPosition().setY(getPosition().y() - stats.getHeight() / 2);
-		getSpeed().setY(-stats.getSPEED());
-		/*
-		 * getGraphicShapes().get(stats.getBODY()).setLocation( new Point((int)
-		 * getPosition().x(), (int) getPosition().y()));
-		 * getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(),
-		 * stats.getHeight()); setPhysicalShape(new PhysicalRectangle((int)
-		 * getPosition().x(), (int) getPosition().y(), stats.getWidth(),
-		 * stats.getHeight()));
-		 */
-
-		// setUP(false);
-		// setCrounched(false);
-		setBlock_down(false);
-		return true;
-	}
-
-	/**
-	 * Hace que el jugador se agache.
-	 * 
-	 * @return
-	 */
-	private boolean moveDown() {
-		/*
-		 * getPosition().setY(getPosition().y() + stats.getHeight() / 2);
-		 * stats.setHeight(20);
-		 * getGraphicShapes().get(stats.getBODY()).setLocation( new Point((int)
-		 * getPosition().x(), (int) getPosition().y()));
-		 * getGraphicShapes().get(stats.getBODY()).setSize(stats.getWidth(),
-		 * stats.getHeight()); setPhysicalShape(new PhysicalRectangle((int)
-		 * getPosition().x(), (int) getPosition().y(), stats.getWidth(),
-		 * stats.getHeight())); setCrounched(true);
-		 */
-		getSpeed().setY(stats.getSPEED());
-		setBlock_up(false);
-		return true;
-	}
 
 	/**
 	 * Hace que el jugador dispare.
@@ -269,14 +225,14 @@ public class Player extends Actor implements Physical_active {
 				|| actor.getPhysicalRectangle().contains(
 						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMinY())))
 				&& !isBlock_down()) {
-			if (Math.abs(getSpeed().y()) * 2 >= intersection.getHeight()) {
+			if (Math.abs(getSpeed().y()) * 3 >= intersection.getHeight()) {
 				this.setPosition(getPosition().add(new Point2D(0, intersection.getHeight()))); // Tocado
 																								// con
 																								// la
 																								// cabeza
 				repaired = true;
 				setJumpTTL(0);
-				setBlock_up(true);
+	//			setBlock_up(true);
 			}
 		}
 		// Si alguno es true colisiona con los pies.
@@ -285,17 +241,17 @@ public class Player extends Actor implements Physical_active {
 				|| actor.getPhysicalRectangle().contains(
 						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMaxY())))
 				&& !isBlock_up()) {
-			if (Math.abs(getSpeed().y()) * 2 >= intersection.getHeight() && !isBlock_down()) {
+			if (Math.abs(getSpeed().y()) * 3 >= intersection.getHeight() && !isBlock_down()) {
 				this.setPosition(getPosition().add(new Point2D(0, -intersection.getHeight())));// Tocado
 																								// con
 																								// los
 																								// pies.
 				repaired = true;
-				setBlock_down(true);
+		//		setBlock_down(true);
 			}
 		}
 		if (!repaired) {
-			if (Math.abs(2 * getSpeed().add(getPush()).x()) >= intersection.getWidth()) { // Comentar
+			if (Math.abs(3* getSpeed().add(getPush()).x()) >= intersection.getWidth()) { // Comentar
 																							// esto,
 																							// buscar
 																							// solucion
@@ -306,10 +262,10 @@ public class Player extends Actor implements Physical_active {
 																							// 2.
 				if (getSpeed().add(getPush()).x() > 0) {
 					this.setPosition(getPosition().substract(intersection.getWidth(), 0));
-					setBlock_right(true);
+		//			setBlock_right(true);
 				} else {
 					this.setPosition(getPosition().add(intersection.getWidth(), 0));
-					setBlock_left(true);
+	//				setBlock_left(true);
 				}
 
 			}
