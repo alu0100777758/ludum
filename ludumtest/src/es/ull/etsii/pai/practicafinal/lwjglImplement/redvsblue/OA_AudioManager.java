@@ -18,6 +18,8 @@ import org.lwjgl.BufferUtils;
 //import org.lwjgl.LWJGLException;
 import org.lwjgl.util.WaveData;
 
+import javafx.scene.media.AudioClip;
+
 public class OA_AudioManager {
 	public static final String SOUNDS_FOLDER = "/sounds/";
 	public static final int MAX_CONCURRENT_SOUNDS = 15;							// Numero maximo de sonidos reproduciendo a la vez.

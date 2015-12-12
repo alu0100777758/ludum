@@ -1,17 +1,13 @@
 package es.ull.etsii.pai.practicafinal.lwjglImplement.redvsblue;
 
-import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Scanner;
-
+ 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
-import org.lwjgl.openal.ALCCapabilities;
-import org.lwjgl.openal.ALContext;
-import org.lwjgl.openal.ALDevice;
 import org.lwjgl.util.WaveData;
  
 public class Lesson1 {
@@ -51,21 +47,21 @@ public class Lesson1 {
       return AL10.AL_FALSE;
  
     //Loads the wave file from your file system
-    java.io.FileInputStream fin = null;
+    /*java.io.FileInputStream fin = null;
     try {
-      fin = new java.io.FileInputStream("Fall_Walk_Run_-_Do_or_Die.wav");
+      fin = new java.io.FileInputStream("FancyPants.wav");
     } catch (java.io.FileNotFoundException ex) {
       ex.printStackTrace();
       return AL10.AL_FALSE;
     }
-    WaveData waveFile = WaveData.create(new BufferedInputStream(fin));
+    WaveData waveFile = WaveData.create(fin);
     try {
       fin.close();
     } catch (java.io.IOException ex) {
-    }
+    }*/
  
-//    //Loads the wave file from this class's package in your classpath
-//    WaveData waveFile = WaveData.create("sounds/Fall_Walk_Run_-_Do_or_Die.wav");
+    //Loads the wave file from this class's package in your classpath
+    WaveData waveFile = WaveData.create("FancyPants.wav");
  
     AL10.alBufferData(buffer.get(0), waveFile.format, waveFile.data, waveFile.samplerate);
     waveFile.dispose();
@@ -79,8 +75,8 @@ public class Lesson1 {
     AL10.alSourcei(source.get(0), AL10.AL_BUFFER,   buffer.get(0) );
     AL10.alSourcef(source.get(0), AL10.AL_PITCH,    1.0f          );
     AL10.alSourcef(source.get(0), AL10.AL_GAIN,     1.0f          );
-    AL10.alSourcefv(source.get(0), AL10.AL_POSITION, sourcePos     );
-    AL10.alSourcefv(source.get(0), AL10.AL_VELOCITY, sourceVel     );
+    AL10.alSourcefv (source.get(0), AL10.AL_POSITION, sourcePos     );
+    AL10.alSourcefv (source.get(0), AL10.AL_VELOCITY, sourceVel     );
  
     // Do another error check and return.
     if (AL10.alGetError() == AL10.AL_NO_ERROR)
@@ -118,16 +114,15 @@ public class Lesson1 {
  
   public void execute() {
     // Initialize OpenAL and clear the error bit.
-    	ALContext context = ALContext.create();
-    	ALDevice device = context.getDevice();
-    	ALCCapabilities capabilities = device.getCapabilities();
-    	 
-    	if (!capabilities.OpenALC10)
-    	    throw new RuntimeException("OpenAL Context Creation failed");
-    	// Make the context current
-    	context.makeCurrent();
-    AL10.alGetError();
- 
+//    try{
+
+//      ALC.create();
+//    } catch (LWJGLException le) {
+//      le.printStackTrace();
+//      return;
+//    }
+//    AL10.alGetError();
+// 
     // Load the wav data.
     if(loadALData() == AL10.AL_FALSE) {
       System.out.println("Error loading data.");
@@ -165,6 +160,6 @@ public class Lesson1 {
       };
     }
     killALData();
-    AL.destroy(context);
+//    AL.destroy();
   }
 }
