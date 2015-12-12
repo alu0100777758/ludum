@@ -176,6 +176,9 @@ public class DefaultTool extends EditorTool {
 	protected Rectangle getShape(ArrayList<Entity> selectedActor) {
 		if (selectedActor.isEmpty())
 			return null;
+		int offsetx = (int)ScreenManager.getInstance().getOffset_x();
+		int offsety = (int)ScreenManager.getInstance().getOffset_y();
+		
 		int minx = Integer.MAX_VALUE;
 		int miny = Integer.MAX_VALUE;
 		int mostRight = Integer.MIN_VALUE;
@@ -189,7 +192,7 @@ public class DefaultTool extends EditorTool {
 					+ entity.getShape().getHeight(), mostDown));
 		}
 
-		return new Rectangle(minx, miny, mostRight - minx, mostDown - miny);
+		return new Rectangle(minx + offsetx, miny +  offsety, mostRight - minx, mostDown - miny);
 	}
 	/**
 	 * Metodo que elimina del mapa los objetos seleccionados
@@ -250,7 +253,7 @@ public class DefaultTool extends EditorTool {
 		Point point = e.getPoint();
 		point.x = (int)( point.x - ScreenManager.getInstance().getOffset_x());
 		point.y = (int)( point.y - ScreenManager.getInstance().getOffset_y());
-		Entity entity = getFirstFor(e.getPoint());
+		Entity entity = getFirstFor(point);
 		if (isRemoveMode()) {
 			getSelectedActor().remove(entity);
 		} else if (entity != null && !getSelectedActor().contains(entity)) {
