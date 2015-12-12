@@ -33,7 +33,7 @@ public class PlayerInitTool extends EditorTool {
 			add(e);
 	}
 
-	protected void add(MouseEvent e) {
+	public void add(MouseEvent e) {
 		addPlayer(new Player(new Point2D(e.getX(), e.getY()), null));
 		setModified(true);
 	}
