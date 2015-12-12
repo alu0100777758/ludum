@@ -16,6 +16,7 @@ public class BasicEnemy extends Player {
 	private Integer yMin;
 	private Integer waitTime = 30; 	// Ticks a esperar entre objetivo y objetivo.
 	private Integer waitLeft;
+	private boolean hasToStartWait = true;
 	
 	private static final long serialVersionUID = 637757710869339130L;
 	private static final Random ENGINE = new Random();
@@ -25,12 +26,21 @@ public class BasicEnemy extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
-	private void calculateNextTarget() {
+	protected void calculateNextTarget() {
 		int x = ENGINE.nextInt(vision * 2) - vision;
 		int y = ENGINE.nextInt(vision * 2) - vision;
 		
 		target = new Point2D(getPosition().x() + x, getPosition().y() + y);
 		
+		calculateMinMax();
+		
+	}
+	
+	protected void calculateMinMax() {
+		int x, y;
+		
+		x = (int) (target.x() - getPosition().x());
+		y = (int) (target.y() - getPosition().y());
 		if (x > 0) {
 			xMin = null;
 			xMax = (int) target.x();
@@ -48,9 +58,7 @@ public class BasicEnemy extends Player {
 			yMax = null;
 			yMin = (int) target.y();
 		}
-		
 	}
-	
 	private void calculateSpeed() {
 		double difX = target.x() - getPosition().x();
 		double difY = target.y() - getPosition().y();
@@ -65,10 +73,11 @@ public class BasicEnemy extends Player {
 		boolean collided =  super.repair_collision(actor);
 		
 		hasToSelectTarget = !collided;
-		
+		if (collided)
+			hasToStartWait = true;
 		return collided;
 	}
-	private boolean checkHasToSelectTarget() {
+	protected boolean checkHasToSelectTarget() {
 		if (hasToSelectTarget)
 			return hasToSelectTarget;
 		if (xMin != null && xMin > getPosition().x()) {
@@ -83,7 +92,8 @@ public class BasicEnemy extends Player {
 		else if (yMax != null && yMax < getPosition().y()) {
 			hasToSelectTarget = true;
 		}
-		
+		if (hasToSelectTarget)
+			hasToStartWait = true;
 		return hasToSelectTarget;
 		
 	}
@@ -98,7 +108,8 @@ public class BasicEnemy extends Player {
 		if (!isDead()) {
 			
 			if (checkHasToSelectTarget()) {
-				startWait();
+				if (hasToStartWait)
+					startWait();
 				calculateNextTarget();
 				calculateSpeed();
 				
@@ -122,6 +133,26 @@ public class BasicEnemy extends Player {
 				
 		}
 		return true;
+	}
+
+	protected int getVision() {
+		return vision;
+	}
+
+	protected boolean isHasToSelectTarget() {
+		return hasToSelectTarget;
+	}
+
+	protected void setHasToSelectTarget(boolean hasToSelectTarget) {
+		this.hasToSelectTarget = hasToSelectTarget;
+	}
+
+	protected Point2D getTarget() {
+		return target;
+	}
+
+	protected void setTarget(Point2D target) {
+		this.target = target;
 	}
 
 	
