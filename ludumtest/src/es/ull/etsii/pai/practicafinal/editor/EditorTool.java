@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
@@ -94,6 +95,10 @@ public abstract class EditorTool implements ActionListener, MouseListener,
 
 	public void setButton(JButton button) {
 		this.button = button;
+	}
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

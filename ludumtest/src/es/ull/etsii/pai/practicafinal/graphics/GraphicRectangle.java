@@ -83,6 +83,8 @@ public class GraphicRectangle extends Rectangle implements Drawable {
 		double yrate = ScreenManager.getInstance().getRate_y();
 		double xoffset = ScreenManager.getInstance().getOffset_x();
 		double yoffset = ScreenManager.getInstance().getOffset_y();
+//		if(textureAnchor != null)
+//			setTextureAnchor(new Rectangle((int)((getTextureAnchor().x + xoffset)* xrate), (int)((getTextureAnchor().y + yoffset)* yrate),(int)(getTextureAnchor().width * xoffset), (int)(getTextureAnchor().height * yoffset)));
 		if (isTexturized() && !isImage())
 			texturize(getTexturePath());
 		Graphics2D g2 = (Graphics2D) g.create();

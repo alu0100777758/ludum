@@ -54,6 +54,9 @@ public class AnimatedGraphicRectangle extends GraphicRectangle {
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}
+	public void addPath(String path){
+		texturePath.add(path);
+	}
 	
 	
 }
