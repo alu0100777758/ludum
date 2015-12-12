@@ -9,7 +9,11 @@ import es.ull.etsii.pai.prct9.geometry.Point2D;
 public class BasicEnemy extends Player {
 	private boolean hasToSelectTarget = true;
 	private Point2D target;
-	private int vision = 100;
+	private int vision = 250;
+	private Integer xMax;
+	private Integer yMax;
+	private Integer xMin;
+	private Integer yMin;
 	
 	private static final long serialVersionUID = 637757710869339130L;
 	private static final Random ENGINE = new Random();
@@ -24,6 +28,25 @@ public class BasicEnemy extends Player {
 		int y = ENGINE.nextInt(vision * 2) - vision;
 		
 		target = new Point2D(getPosition().x() + x, getPosition().y() + y);
+		
+		if (x > 0) {
+			xMin = null;
+			xMax = (int) target.x();
+		}
+		else{
+			xMax = null;
+			xMin = (int) target.x();
+		}
+			
+		if (y > 0) {
+			yMin = null;
+			yMax = (int) target.y();
+		}
+		else {
+			yMax = null;
+			yMin = (int) target.y();
+		}
+		
 	}
 	
 	private void calculateSpeed() {
@@ -31,19 +54,37 @@ public class BasicEnemy extends Player {
 		double difY = target.y() - getPosition().y();
 		double angle = Math.atan2(difX, difY);
 		
-		getSpeed().setX(Math.cos(angle) * stats.getSPEED());
-		getSpeed().setY(Math.sin(angle) * stats.getSPEED());
+		getSpeed().setX(Math.cos(angle - Math.toRadians(90)) * stats.getSPEED());
+		getSpeed().setY(Math.sin(angle - Math.toRadians(90)) * stats.getSPEED());
 	}
 	
 	@Override
 	public boolean repair_collision(Physical_passive actor) {
 		boolean collided =  super.repair_collision(actor);
 		
-		hasToSelectTarget = collided;
+		hasToSelectTarget = !collided;
 		
 		return collided;
 	}
-
+	private boolean checkHasToSelectTarget() {
+		if (hasToSelectTarget)
+			return hasToSelectTarget;
+		if (xMin != null && xMin > getPosition().x()) {
+			hasToSelectTarget = true;
+		}
+		else if (xMax != null && xMax < getPosition().x()) {
+			hasToSelectTarget = true;
+		}
+		else if (yMin != null && yMin > getPosition().y()) {
+			hasToSelectTarget = true;
+		}
+		else if (yMax != null && yMax < getPosition().y()) {
+			hasToSelectTarget = true;
+		}
+		
+		return hasToSelectTarget;
+		
+	}
 	@Override
 	public boolean updatePos(Physical_passive map) {		
 		if (!map.getPhysicalRectangle().contains(getPhysicalShape())) 
@@ -51,11 +92,12 @@ public class BasicEnemy extends Player {
 		
 		if (!isDead()) {
 			
-			if (hasToSelectTarget) {
+			if (checkHasToSelectTarget()) {
 				calculateNextTarget();
 				calculateSpeed();
-				updateToraxRotation(new Point((int)target.x(), (int)target.y()));
-				updateLegsRotation(target);
+			//	updateToraxRotation(new Point((int)target.x(), (int)target.y()));
+			//	updateLegsRotation(target);
+				hasToSelectTarget = false;
 			}
 			
 			getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
