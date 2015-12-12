@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.graphics.GraphicRectangle;
@@ -19,9 +20,11 @@ import es.ull.etsii.pai.practicafinal.graphics.RotationRectangle;
 import es.ull.etsii.pai.practicafinal.metaclass.Weapon;
 import es.ull.etsii.pai.practicafinal.metaclass.gamemodeclasses.DefaultModeScoring;
 import es.ull.etsii.pai.practicafinal.metaclass.weapons.Knife;
+import es.ull.etsii.pai.practicafinal.physics.Line_trace;
 import es.ull.etsii.pai.practicafinal.physics.PhysicalRectangle;
 import es.ull.etsii.pai.practicafinal.physics.Physical_active;
 import es.ull.etsii.pai.practicafinal.physics.Physical_passive;
+import es.ull.etsii.pai.practicafinal.physics.Tracer;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
 import es.ull.etsii.pai.prct9.geometry.Segment;
 
@@ -64,7 +67,7 @@ public class Player extends Actor implements Physical_active {
 														// desactivadas la
 														// reparacion de
 														// colisiones.
-
+	private Tracer killTracer;
 	/**
 	 * Crea un jugador en la posicion dada en el mapa dado.
 	 * 
@@ -99,6 +102,7 @@ public class Player extends Actor implements Physical_active {
 		// setWeapon(new RocketLauncher(this));
 		setWeapon(new Knife(this));
 		setSpeed(new Point2D(0, 0));
+		setKillTracer(new Tracer(new Line_trace(getPosition(), getPosition().add(getSpeed()),this)));
 	}
 
 	public void updateToraxRotation(Point p) {
@@ -380,6 +384,8 @@ public class Player extends Actor implements Physical_active {
 			setPosition(getPosition().add(getSpeed().add(getPush())));
 			getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
 	//		setPosition(getPosition().add(getSpeed().add(getPush()))); // CAmbiado;
+			Line2D line = new Line2D.Float((float)getKillTracer().getTrace().getLine().getX1(), (float)getKillTracer().getTrace().getLine().getY1(), (float)getSpeed().x(), (float)getSpeed().y());
+		getKillTracer().getTrace().setLine(line);
 		}
 		return true;
 	}
@@ -708,6 +714,14 @@ public class Player extends Actor implements Physical_active {
 
 	public void setLegs(RotationRectangle legs) {
 		this.legs = legs;
+	}
+
+	public Tracer getKillTracer() {
+		return killTracer;
+	}
+
+	public void setKillTracer(Tracer killTracer) {
+		this.killTracer = killTracer;
 	}
 
 }

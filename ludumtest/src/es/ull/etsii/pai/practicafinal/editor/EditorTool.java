@@ -7,6 +7,7 @@ package es.ull.etsii.pai.practicafinal.editor;
  * @author Javier Martin Hernandez alu0100777758@ull.edu.es
  */
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -17,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
+import es.ull.etsii.pai.prct9.geometry.Point2D;
 
 /**
  * clase abstracta que representa cualquier herramienta del editor
@@ -34,7 +37,22 @@ public abstract class EditorTool implements ActionListener, MouseListener,
 	}
 	public void paint(Graphics g) {
 	}
-	
+	Point inSystem(Point point){
+		ScreenManager scr = ScreenManager.getInstance();
+		point.setLocation((int)(point.getX()+scr.getOffset_x())*scr.getRate_x(),(int)(point.getY()+scr.getOffset_y())*scr.getRate_y());
+		return point;
+	}
+	Point outSystem(Point point){
+		ScreenManager scr = ScreenManager.getInstance();
+		point.setLocation((int)(point.getX()-scr.getOffset_x())/scr.getRate_x(),(int)(point.getY()-scr.getOffset_y())/scr.getRate_y());
+		return point;
+	}
+	Point2D inSystem(Point2D point){
+		ScreenManager scr = ScreenManager.getInstance();
+		point.setX((point.x()+scr.getOffset_x())*scr.getRate_x());
+		point.setY((point.y()+scr.getOffset_y())*scr.getRate_y());
+		return point;
+	}
 	/**
 	 * Getters y setters
 	 */

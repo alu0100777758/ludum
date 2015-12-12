@@ -194,7 +194,7 @@ public class DefaultTool extends EditorTool {
 					+ entity.getShape().getHeight(), mostDown));
 		}
 
-		return new Rectangle(minx + offsetx, miny +  offsety, mostRight - minx, mostDown - miny);
+		return new Rectangle((int)((minx + offsetx)*ScreenManager.getInstance().getRate_x()), (int)((miny +  offsety)* ScreenManager.getInstance().getRate_y()), (int)((mostRight - minx) * ScreenManager.getInstance().getRate_x()), (int)((mostDown - miny) * ScreenManager.getInstance().getRate_y()));
 	}
 	/**
 	 * Metodo que elimina del mapa los objetos seleccionados
@@ -252,10 +252,7 @@ public class DefaultTool extends EditorTool {
 				&& (getSelectedActor().size() < 2 || !getShape().contains(
 						e.getPoint())))
 			clearAll();
-		Point point = e.getPoint();
-		point.x = (int)( point.x - ScreenManager.getInstance().getOffset_x());
-		point.y = (int)( point.y - ScreenManager.getInstance().getOffset_y());
-		Entity entity = getFirstFor(point);
+		Entity entity = getFirstFor(outSystem(e.getPoint()));
 		if (isRemoveMode()) {
 			getSelectedActor().remove(entity);
 		} else if (entity != null && !getSelectedActor().contains(entity)) {
@@ -263,7 +260,6 @@ public class DefaultTool extends EditorTool {
 			Rectangle shape = getShape(getSelectedActor());
 			setShape(shape);
 		} else if (entity == null){
-			setLastPoint(lastPoint);
 			setMoveMode(true);
 		}
 	}
@@ -287,7 +283,7 @@ public class DefaultTool extends EditorTool {
 	}
 	public void moveMap(Point point){
 		ScreenManager scr = ScreenManager.getInstance();
-		scr.setOffset_x(scr.getOffset_x() + point.x );
+		scr.setOffset_x(scr.getOffset_x() + point.x);
 		scr.setOffset_y(scr.getOffset_y() + point.y);
 	}
 
@@ -482,6 +478,7 @@ public class DefaultTool extends EditorTool {
 		ScreenManager scr = ScreenManager.getInstance();
 		scr.setRate_x(scr.getRate_x() - 0.1*arg0.getWheelRotation());
 		scr.setRate_y(scr.getRate_y() - 0.1*arg0.getWheelRotation());
+		setModified(true);
 //		System.out.println("wheel: "+arg0.getWheelRotation() + "rates:" + scr.getRate_x()+"  "+scr.getRate_y());
 	}
 	

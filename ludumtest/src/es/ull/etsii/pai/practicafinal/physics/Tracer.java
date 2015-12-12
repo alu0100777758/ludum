@@ -45,4 +45,23 @@ public class Tracer {
 		}
 		return actors;
 	}
+	public Positionable getOwner() {
+		return owner;
+	}
+	public void setOwner(Positionable owner) {
+		this.owner = owner;
+	}
+	public boolean[] getChannels() {
+		return channels;
+	}
+	public void setChannels(boolean[] channels) {
+		this.channels = channels;
+	}
+	public Line_trace getTrace() {
+		return trace;
+	}
+	public void setTrace(Line_trace trace) {
+		this.trace = trace;
+	}
+	
 }
