@@ -11,14 +11,16 @@ import java.util.ArrayList;
 public class CircularArrayList<E> extends ArrayList<E> {
 	private static final long serialVersionUID = 9032499745453854434L;
 	private int head = 0;
+	private int maxSteps = 1;
+	private int steps = 1;
 	
 	public E forward(){
 		setHead(getHead()+1);
-		return get();
+		return get(getHead());
 	}
 	public E backwards(){
 		setHead(getHead()-1);
-		return get();
+		return get(getHead());
 	}
 	public int getHead() {
 		return head;
@@ -32,10 +34,28 @@ public class CircularArrayList<E> extends ArrayList<E> {
 			setHead(0);
 	}
 	public E get() {
+		setSteps(getSteps() - 1);;
+		if(getSteps() == 0){
+			forward();
+			steps = getMaxSteps();
+//			System.out.println("avanti step ; maxSteps: " + getMaxSteps());
+		}
 		return get(getHead());
 	}
 	public void set(E value){
 		set(getHead(), value);
+	}
+	public int getMaxSteps() {
+		return maxSteps;
+	}
+	public void setMaxSteps(int maxSteps) {
+		this.maxSteps = maxSteps;
+	}
+	public int getSteps() {
+		return steps;
+	}
+	public void setSteps(int steps) {
+		this.steps = steps;
 	}
 	
 }

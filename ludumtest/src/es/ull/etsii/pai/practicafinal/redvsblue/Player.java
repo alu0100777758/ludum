@@ -104,6 +104,7 @@ public class Player extends Actor implements Physical_active {
 		setWeapon(new Knife(this));
 		setSpeed(new Point2D(0, 0));
 		setKillTracer(new Tracer(new Line_trace(getPosition(), getPosition().add(getSpeed()),this)));
+		this.legs.setMaxSteps(30);
 	}
 
 	public void updateToraxRotation(Point p) {
