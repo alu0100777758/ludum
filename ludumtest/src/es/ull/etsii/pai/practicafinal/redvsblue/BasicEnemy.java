@@ -29,8 +29,10 @@ public class BasicEnemy extends Player {
 	private void calculateSpeed() {
 		double difX = target.x() - getPosition().x();
 		double difY = target.y() - getPosition().y();
+		double angle = Math.atan2(difX, difY);
 		
-		Math.atan(difY / difX);
+		getSpeed().setX(Math.cos(angle) * stats.getSPEED());
+		getSpeed().setY(Math.sin(angle) * stats.getSPEED());
 	}
 	
 	@Override
