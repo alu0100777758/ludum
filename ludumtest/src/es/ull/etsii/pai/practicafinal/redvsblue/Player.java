@@ -28,7 +28,7 @@ import es.ull.etsii.pai.prct9.geometry.Segment;
 public class Player extends Actor implements Physical_active {
 	private static final long serialVersionUID = -3033119409170313204L;
 
-	private Point2D speed; // Vector velocidad.
+	private Point2D speed = new Point2D(0, -5); // Vector velocidad.
 	private Point2D push; // Vector de empuje.
 	private int score; // puntuacion del jugador.
 	private int hp; // Cantidad de vida actual.
@@ -53,7 +53,8 @@ public class Player extends Actor implements Physical_active {
 	private boolean shooting = false; // True si esta disparando.
 	private RotationRectangle torax;
 	private RotationRectangle legs;
-	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 5, -5.0, 0, 1, 150, 2, Color.BLUE,
+	private double rotationRate = 5;
+	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 4, -5.0, 0, 1, 150, 2, Color.BLUE,
 			new String[] { "playerhit01.wav", "playerhit02.wav", "playerhit03.wav", });
 	private String reloadSound = "";
 	private boolean physicalResponseSuspended = false; // denota si se
@@ -135,8 +136,14 @@ public class Player extends Actor implements Physical_active {
 	 * @return
 	 */
 	private boolean moveLeft() {
-		getSpeed().setX(-stats.getSPEED());
-		setBlock_right(false);
+		int moduleSpeed = stats.getSPEED();
+		
+		getTorax().setRotationg(getTorax().getRotationg() - rotationRate);
+		getLegs().setRotationg(getLegs().getRotationg() - rotationRate);
+		
+		getSpeed().setX(Math.cos(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
+		getSpeed().setY(Math.sin(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
+		
 		return true;
 	}
 
@@ -146,8 +153,14 @@ public class Player extends Actor implements Physical_active {
 	 * @return
 	 */
 	private boolean moveRight() {
-		getSpeed().setX(stats.getSPEED());
-		setBlock_left(false);
+		int moduleSpeed = stats.getSPEED();
+		
+		getTorax().setRotationg(getTorax().getRotationg() + rotationRate);
+		getLegs().setRotationg(getLegs().getRotationg() + rotationRate);
+		
+		getSpeed().setX(Math.cos(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
+		getSpeed().setY(Math.sin(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
+		
 		return true;
 	}
 
@@ -347,19 +360,19 @@ public class Player extends Actor implements Physical_active {
 	 * frame.
 	 */
 	void ResolveUnreleasedMovements() {
-		if (isMove_down())
-			moveDown();
+	//	if (isMove_down())
+	//		moveDown();
 		if (isMove_left())
 			moveLeft();
 		if (isMove_right())
 			moveRight();
-		if (isMove_up())
-			moveUP();
-		setBlock_down(false);
-		if (!isMove_left() && !isMove_right())
-			getSpeed().setX(0);
-		if (!isMove_down() && !isMove_up())
-			getSpeed().setY(0);
+	//	if (isMove_up())
+	//		moveUP();
+//		setBlock_down(false);
+//		if (!isMove_left() && !isMove_right())
+//			getSpeed().setX(0);
+//		if (!isMove_down() && !isMove_up())
+//			getSpeed().setY(0);
 	}
 
 	/**
