@@ -9,6 +9,7 @@ package es.ull.etsii.pai.practicafinal.physics;
 import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.Actor;
+import es.ull.etsii.pai.practicafinal.redvsblue.BasicEnemy;
 import es.ull.etsii.pai.practicafinal.redvsblue.Bullet;
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
@@ -87,6 +88,10 @@ public class PhysicsEngine {
 				if (getActors().get(j) instanceof Bullet) {
 					if (((Bullet) getActors().get(j)).collides(map))
 						getActors().remove(j);
+				}
+				else if (getActors().get(j) instanceof BasicEnemy) {
+					if (map.collides((BasicEnemy) getActors().get(j)))
+						((BasicEnemy) getActors().get(j)).repair_collision(map);
 				}
 			}
 		}

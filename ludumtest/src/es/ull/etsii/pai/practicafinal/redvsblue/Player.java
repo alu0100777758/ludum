@@ -54,7 +54,7 @@ public class Player extends Actor implements Physical_active {
 	private RotationRectangle torax;
 	private RotationRectangle legs;
 	private double rotationRate = 5;
-	protected PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 6, -5.0, 0, 1, 150, 2, Color.BLUE,
+	protected PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 8, -5.0, 0, 1, 150, 2, Color.BLUE,
 			new String[] { "playerhit01.wav", "playerhit02.wav", "playerhit03.wav", });
 	private String reloadSound = "";
 	private boolean physicalResponseSuspended = false; // denota si se

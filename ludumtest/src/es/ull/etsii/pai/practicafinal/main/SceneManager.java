@@ -54,13 +54,13 @@ public class SceneManager extends JFrame {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			getCurrentScenario().moveMouse(e.getX(), e.getY());
+		//	getCurrentScenario().moveMouse(e.getX(), e.getY());
 			
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			getCurrentScenario().moveMouse(e.getX(), e.getY());
+			//getCurrentScenario().moveMouse(e.getX(), e.getY());
 		}
 		
 	}
