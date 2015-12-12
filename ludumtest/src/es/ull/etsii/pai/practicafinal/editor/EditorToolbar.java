@@ -27,7 +27,7 @@ public class EditorToolbar extends JToolBar implements ActionListener {
 	private static final long serialVersionUID = 6391135058169913712L;			//	serial de la ultima version
 	public static final EditorTool[] TOOLS = { new DefaultTool(),				//	array con las herramientas disponibles
 			new RectangleTool(), new BackgroundTool(),new ForegroundTool(), new PlayerInitTool(),
-			new PowerUPTool(), new TextureTool() };
+			new PowerUPTool(), new TextureTool(), new EnemyTool() };
 	int selectedToolIndex = 0;													//	indice en el array anterior correspondiente con la herramienta seleccionada
 	BvsR_Map workingOn = null;													//	mapa sobre el que est� trabajando el editor actualmente
 	
