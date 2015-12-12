@@ -93,7 +93,7 @@ public class Scenario {
 	 */
 	public void paint(Graphics g) {
 		getWorld().paint(g);
-		new GraphicPoint(getMousePosition()).drawPoint(g.create());
+		
 		if (isPaused()) {
 			ScreenManager sm = ScreenManager.getInstance();
 			g.drawImage(ResourceManager.getInstance().getBufferedImage(PAUSE_TEXTURE), 0, 0,

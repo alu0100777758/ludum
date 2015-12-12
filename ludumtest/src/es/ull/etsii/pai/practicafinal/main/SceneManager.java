@@ -27,7 +27,7 @@ public class SceneManager extends JFrame {
 	public SceneManager() {
 		super();
 		this.addKeyListener(new KeyHandler());
-		this.addMouseMotionListener(new MouseMotionHandler());
+	//	this.addMouseMotionListener(new MouseMotionHandler());
 		// setCurrentScenario(scenario);
 		// add(getCurrentScenario());
 		// scenario.setSceneManager(this);
