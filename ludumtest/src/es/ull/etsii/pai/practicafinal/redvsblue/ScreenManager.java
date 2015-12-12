@@ -14,6 +14,9 @@ public class ScreenManager {
 	private static ScreenManager instance = null;
 	private double rate_x = 1;
 	private double rate_y = 1;
+	double offset_x;
+	double offset_y;
+	
 	public static  ScreenManager getInstance(){
 		if(instance == null)
 			instance = new ScreenManager();
@@ -53,6 +56,18 @@ public class ScreenManager {
 	}
 	public int getCurrentHeight(){
 		return (int)(double)(getWindHeight()*getRate_y());
+	}
+	public double getOffset_x() {
+		return offset_x;
+	}
+	public void setOffset_x(double offset_x) {
+		this.offset_x = offset_x;
+	}
+	public double getOffset_y() {
+		return offset_y;
+	}
+	public void setOffset_y(double offset_y) {
+		this.offset_y = offset_y;
 	}
 	
 }

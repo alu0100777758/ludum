@@ -36,11 +36,13 @@ public class RotationRectangle extends GraphicRectangle {
 	public void paint(Graphics g2) {
 		double xrate = ScreenManager.getInstance().getRate_x();
 		double yrate = ScreenManager.getInstance().getRate_y();
+		double xoffset = ScreenManager.getInstance().getOffset_x();
+		double yoffset = ScreenManager.getInstance().getOffset_y();
 			BufferedImage bimage = ResourceManager.getInstance()
 					.getBufferedImage(getTexturePath());
 				bimage = rotate(bimage, getRotationg());
-			g2.drawImage(bimage, (int) (getLocation().getX() * xrate),
-					(int) (getLocation().getY() * yrate),
+			g2.drawImage(bimage, (int) ((getLocation().getX() + xoffset) * xrate),
+					(int) ((getLocation().getY() + yoffset)* yrate),
 					(int) (getWidth() * xrate), (int) (getHeight() * yrate),
 					null);
 	}

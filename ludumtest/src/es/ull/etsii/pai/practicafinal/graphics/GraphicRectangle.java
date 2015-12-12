@@ -81,6 +81,8 @@ public class GraphicRectangle extends Rectangle implements Drawable {
 	public void paint(Graphics g) {
 		double xrate = ScreenManager.getInstance().getRate_x();
 		double yrate = ScreenManager.getInstance().getRate_y();
+		double xoffset = ScreenManager.getInstance().getOffset_x();
+		double yoffset = ScreenManager.getInstance().getOffset_y();
 		if (isTexturized() && !isImage())
 			texturize(getTexturePath());
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -92,14 +94,14 @@ public class GraphicRectangle extends Rectangle implements Drawable {
 //			if(isRotated()){
 //				bimage = createRotated(bimage, getRotation());
 //			}
-			g2.drawImage(bimage, (int) (getLocation().getX() * xrate),
-					(int) (getLocation().getY() * yrate),
+			g2.drawImage(bimage, (int) ((getLocation().getX() + xoffset )* xrate),
+					(int) (getLocation().getY() + yoffset * yrate),
 					(int) (getWidth() * xrate), (int) (getHeight() * yrate),
 					null);
 		} else {
 			g2.setPaint(getPaint());
-			g2.fill(new Rectangle((int) (getLocation().getX() * xrate),
-					(int) (getLocation().getY() * yrate),
+			g2.fill(new Rectangle((int) ((getLocation().getX() + xoffset)* xrate),
+					(int) ((getLocation().getY() + yoffset)* yrate),
 					(int) (getWidth() * xrate), (int) (getHeight() * yrate)));
 		}
 

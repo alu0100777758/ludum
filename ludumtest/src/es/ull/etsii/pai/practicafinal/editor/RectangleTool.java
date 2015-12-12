@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 import es.ull.etsii.pai.practicafinal.redvsblue.StaticPlatform;
 
 
@@ -38,11 +39,12 @@ public class RectangleTool extends EditorTool {
 	}
 
 	protected void addRectangle(int i, int j, int i2, int j2) {
+		ScreenManager scr = ScreenManager.getInstance();
 		int beginX = Math.min(i, i2);
 		int beginY = Math.min(j, j2);
 		int endX = Math.max(i, i2);
 		int endY = Math.max(j, j2);
-		StaticPlatform rect = new StaticPlatform(beginX, beginY, endX - beginX,
+		StaticPlatform rect = new StaticPlatform((int)(beginX - scr.getOffset_x()), (int)(beginY- scr.getOffset_y()), endX - beginX,
 				endY - beginY);
 		getMap().addStaticMap(rect);
 	}

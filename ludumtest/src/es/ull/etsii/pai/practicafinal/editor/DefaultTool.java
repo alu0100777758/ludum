@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import es.ull.etsii.pai.practicafinal.redvsblue.Actor;
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 
 
 /**
@@ -39,7 +40,8 @@ public class DefaultTool extends EditorTool {
 	private static ArrayList<Integer> clipBoardfoundInplane = new ArrayList<Integer>();		//	ArrayList que contendr� el plano en el que se ha encontrado cada entidad copiada
 	private boolean stretchingMode;															//	Define si esta activado el modo "alargar"
 	private boolean addingMode = false;														//	Define si esta activado el modo "agregar a la seleccion"
-	private boolean removeMode = false;														//	Define si esta activado el modo "eliminar de la seleccion"
+	private boolean removeMode = false;	//	Define si esta activado el modo "eliminar de la seleccion"
+	private boolean moveMode = false;
 	private Rectangle shape = null;															//  Define el rectangulo en el que se encuadra la seleccion ("feedback" visual)
 	public static final Color STRETCH_COLOR = Color.RED;									//	Color de la seleccion en modo "alargar"
 	public static final Color TRANSLATE_COLOR = Color.YELLOW;								//	Color de la seleccion en modo "desplazar"
@@ -245,6 +247,9 @@ public class DefaultTool extends EditorTool {
 				&& (getSelectedActor().size() < 2 || !getShape().contains(
 						e.getPoint())))
 			clearAll();
+		Point point = e.getPoint();
+		point.x = (int)( point.x - ScreenManager.getInstance().getOffset_x());
+		point.y = (int)( point.y - ScreenManager.getInstance().getOffset_y());
 		Entity entity = getFirstFor(e.getPoint());
 		if (isRemoveMode()) {
 			getSelectedActor().remove(entity);
@@ -252,6 +257,9 @@ public class DefaultTool extends EditorTool {
 			getSelectedActor().add(entity);
 			Rectangle shape = getShape(getSelectedActor());
 			setShape(shape);
+		} else if (entity == null){
+			setLastPoint(lastPoint);
+			setMoveMode(true);
 		}
 	}
 
@@ -263,8 +271,19 @@ public class DefaultTool extends EditorTool {
 			moveAdd(point);
 			setLastPoint(e.getPoint());
 			setModified(true);
+		}else if(isMoveMode()){
+			Point point = new Point(e.getX() - (int) getLastPoint().getX(),
+					e.getY() - (int) getLastPoint().getY());
+			moveMap(point);
+			setLastPoint(e.getPoint());
+			setModified(true);
 		}
 
+	}
+	public void moveMap(Point point){
+		ScreenManager scr = ScreenManager.getInstance();
+		scr.setOffset_x(scr.getOffset_x() + point.x );
+		scr.setOffset_y(scr.getOffset_y() + point.y);
 	}
 
 	@Override
@@ -447,5 +466,11 @@ public class DefaultTool extends EditorTool {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
-
+	public boolean isMoveMode() {
+		return moveMode;
+	}
+	public void setMoveMode(boolean moveMode) {
+		this.moveMode = moveMode;
+	}
+	
 }
