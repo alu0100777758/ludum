@@ -60,7 +60,12 @@ public class Scenario {
 			e.printStackTrace();
 		}
 		setPhysicEngine(new PhysicsEngine(getWorld()));
-		
+		for(Actor actor : getWorld().getMapData().getActors()){
+			if(actor instanceof Player){
+				Player pl = (Player)actor;
+				pl.setMap(getWorld());
+			}
+		}
 		new GraphicPoint(new Point(0, 0), Color.RED, 3);
 	}
 

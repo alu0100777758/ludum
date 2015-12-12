@@ -51,7 +51,7 @@ public class EnemyTool extends PlayerInitTool {
 		Player player = null;
 		switch(getEnemyType()){
 		case BASIC :
-			player = new BasicEnemy(pos,null);
+			player = new BasicEnemy(pos, null);
 			break;
 		case YOQUESE:
 			player = new FollowerEnemy(pos, null);
