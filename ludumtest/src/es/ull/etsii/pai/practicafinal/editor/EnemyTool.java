@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.BasicEnemy;
+import es.ull.etsii.pai.practicafinal.redvsblue.FollowerEnemy;
 import es.ull.etsii.pai.practicafinal.redvsblue.Player;
 import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
@@ -53,24 +54,16 @@ public class EnemyTool extends PlayerInitTool {
 			player = new BasicEnemy(pos,null);
 			break;
 		case YOQUESE:
-			player = null;
+			player = new FollowerEnemy(pos, null);
 			break;
 		}
 		return player;
 	}
 	public void addPlayer(Player player) {
-		if (player != null) {
-//				player.getTorax().setTexturePath("textures/char_sprite.png");
-//				player.getLegs().setTexturePath("textures/leg_right_sprite.png");
-//
-//				getMap().addActor(player);
-			if (getMap().getPlayer_one() == null) {
-				getMap().setPlayer_one(player);
+		if (player != null) {			
 				player.getTorax().setTexturePath("textures/char_sprite.png");
 				player.getLegs().setTexturePath("textures/leg_right_sprite.png");
-//				player.getTorax().setTexturePath("textures/leg_right_sprite.png");
-				getMap().addActor(getMap().getPlayer_one());
-			}
+				getMap().addActor(player);
 			}
 	}
 	public int getEnemyType() {
