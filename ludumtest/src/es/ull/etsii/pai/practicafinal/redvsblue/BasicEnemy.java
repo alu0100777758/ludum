@@ -25,15 +25,37 @@ public class BasicEnemy extends Player {
 		
 		target = new Point2D(getPosition().x() + x, getPosition().y() + y);
 	}
+	
+	private void calculateSpeed() {
+		double difX = target.x() - getPosition().x();
+		double difY = target.y() - getPosition().y();
+		
+		Math.atan(difY / difX);
+	}
+	
+	@Override
+	public boolean repair_collision(Physical_passive actor) {
+		boolean collided =  super.repair_collision(actor);
+		
+		hasToSelectTarget = collided;
+		
+		return collided;
+	}
 
 	@Override
-	public boolean updatePos(Physical_passive map) {
-		if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
+	public boolean updatePos(Physical_passive map) {		
+		if (!map.getPhysicalRectangle().contains(getPhysicalShape())) 
 			return false;
+		
 		if (!isDead()) {
 			
-			if (hasToSelectTarget)
+			if (hasToSelectTarget) {
 				calculateNextTarget();
+				calculateSpeed();
+				updateToraxRotation(new Point((int)target.x(), (int)target.y()));
+				updateLegsRotation(target);
+			}
+			
 			getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
 			setPosition(getPosition().add(getSpeed().add(getPush())));
 			getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
