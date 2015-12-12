@@ -38,7 +38,7 @@ public class CircularArrayList<E> extends ArrayList<E> {
 		if(getSteps() == 0){
 			forward();
 			steps = getMaxSteps();
-//			System.out.println("avanti step ; maxSteps: " + getMaxSteps());
+			System.out.println("avanti step ; maxSteps: " + getMaxSteps());
 		}
 		return get(getHead());
 	}
