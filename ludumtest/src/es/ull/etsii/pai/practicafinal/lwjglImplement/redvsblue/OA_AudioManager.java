@@ -26,7 +26,7 @@ public class OA_AudioManager {
 	private static boolean sfx = true;											// Determina si estan activados los efectos de sonido.
 	private static boolean music = true;										// Determina si esta activada la musica TODO cambiar el comportamiento por defecto 
 														//	(por defecto desactivada por comodidad durante desarrollo)
-	private Wa wavEffect;
+	private static Wa wavEffect;
 	public static void init(){
 		try {
 
