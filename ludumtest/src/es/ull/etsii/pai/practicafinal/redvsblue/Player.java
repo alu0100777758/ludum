@@ -54,7 +54,7 @@ public class Player extends Actor implements Physical_active {
 	private RotationRectangle torax;
 	private RotationRectangle legs;
 	private double rotationRate = 5;
-	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 4, -5.0, 0, 1, 150, 2, Color.BLUE,
+	private PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 6, -5.0, 0, 1, 150, 2, Color.BLUE,
 			new String[] { "playerhit01.wav", "playerhit02.wav", "playerhit03.wav", });
 	private String reloadSound = "";
 	private boolean physicalResponseSuspended = false; // denota si se
@@ -355,7 +355,7 @@ public class Player extends Actor implements Physical_active {
 			ResolveUnreleasedMovements();
 			getWeapon().update();
 			updatePush();
-			if (!isBlock_down()) { // Por lo visto esto controla el salto
+		/*	if (!isBlock_down()) { // Por lo visto esto controla el salto
 				if (getJumpTTL() != 0) {
 					moveJump();
 				} else
@@ -364,13 +364,14 @@ public class Player extends Actor implements Physical_active {
 					fall();
 				// ;
 			}
+			*/
 			// Aqui es donde realmente cambiamos la posicion una vez calculado
 			// donde va a ir.
-			updateLegsRotation(getSpeed().add(getPosition()));
+		//	updateLegsRotation(getSpeed().add(getPosition()));
 			getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
 			setPosition(getPosition().add(getSpeed().add(getPush())));
-					getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
-			setPosition(getPosition().add(getSpeed().add(getPush()))); // CAmbiado;
+			getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
+	//		setPosition(getPosition().add(getSpeed().add(getPush()))); // CAmbiado;
 		}
 		return true;
 	}
