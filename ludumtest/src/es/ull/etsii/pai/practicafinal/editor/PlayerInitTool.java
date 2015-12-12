@@ -25,7 +25,8 @@ import es.ull.etsii.pai.prct9.geometry.Point2D;
  *
  */
 public class PlayerInitTool extends EditorTool {
-	public static final String T_PLAYERINIT_ICON = "/icons/PlayerInitTool.png"; 		//	ruta del icono
+	public static final String T_PLAYERINIT_ICON = "/icons/PlayerInitTool.png"; //	ruta del icono
+	public static final String [] LEG_SPRITES = {"textures/leg_right_sprite.png","textures/leg_mid_sprite.png","textures/leg_left_sprite.png"};
 	public PlayerInitTool() {
 		setButton(new JButton(new ImageIcon(getClass().getResource(T_PLAYERINIT_ICON))));
 	}
@@ -48,7 +49,9 @@ public class PlayerInitTool extends EditorTool {
 			if (getMap().getPlayer_one() == null) {
 				getMap().setPlayer_one(player);
 				player.getTorax().setTexturePath("textures/char_sprite.png");
-				player.getLegs().setTexturePath("textures/leg_right_sprite.png");
+				for(String path : LEG_SPRITES)
+					player.getLegs().setTexturePath(path);
+//				player.getLegs().setTexturePath("textures/leg_right_sprite.png");
 //				player.getTorax().setTexturePath("textures/leg_right_sprite.png");
 
 				getMap().addActor(getMap().getPlayer_one());
@@ -94,7 +97,7 @@ public class PlayerInitTool extends EditorTool {
 	@Override
 	public void keyTyped(KeyEvent e) {	
 	}
-	@Override
+	
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// TODO Auto-generated method stub
 		

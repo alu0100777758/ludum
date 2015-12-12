@@ -15,6 +15,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+import es.ull.etsii.pai.common.CircularArrayList;
 import es.ull.etsii.pai.practicafinal.graphics.GraphicRectangle;
 import es.ull.etsii.pai.practicafinal.graphics.RotationRectangle;
 import es.ull.etsii.pai.practicafinal.metaclass.Weapon;
@@ -56,8 +57,8 @@ public class Player extends Actor implements Physical_active {
 										// derecha.
 	private boolean crounched = false; // True si esta agachado.
 	private boolean shooting = false; // True si esta disparando.
-	private RotationRectangle torax;
-	private RotationRectangle legs;
+	private CircularArrayList<RotationRectangle> torax = new CircularArrayList<>();
+	private CircularArrayList<RotationRectangle> legs = new CircularArrayList<>();
 	private double rotationRate = 5;
 	protected PlayerData stats = new PlayerData(20, 1, 0, 40, 40, 8, -5.0, 0, 1, 150, 2, Color.BLUE,
 			new String[] { "playerhit01.wav", "playerhit02.wav", "playerhit03.wav", });
@@ -701,19 +702,19 @@ public class Player extends Actor implements Physical_active {
 	}
 
 	public RotationRectangle getTorax() {
-		return torax;
+		return torax.get();
 	}
 
 	public void setTorax(RotationRectangle torax) {
-		this.torax = torax;
+		this.torax.add(torax);
 	}
 
 	public RotationRectangle getLegs() {
-		return legs;
+		return legs.get();
 	}
 
 	public void setLegs(RotationRectangle legs) {
-		this.legs = legs;
+		this.legs.add(legs);
 	}
 
 	public Tracer getKillTracer() {
