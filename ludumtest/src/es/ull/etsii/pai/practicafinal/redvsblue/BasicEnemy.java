@@ -14,6 +14,8 @@ public class BasicEnemy extends Player {
 	private Integer yMax;
 	private Integer xMin;
 	private Integer yMin;
+	private Integer waitTime = 30; 	// Ticks a esperar entre objetivo y objetivo.
+	private Integer waitLeft;
 	
 	private static final long serialVersionUID = 637757710869339130L;
 	private static final Random ENGINE = new Random();
@@ -85,6 +87,9 @@ public class BasicEnemy extends Player {
 		return hasToSelectTarget;
 		
 	}
+	private void startWait() {
+		waitLeft = waitTime;
+	}
 	@Override
 	public boolean updatePos(Physical_passive map) {		
 		if (!map.getPhysicalRectangle().contains(getPhysicalShape())) 
@@ -93,17 +98,28 @@ public class BasicEnemy extends Player {
 		if (!isDead()) {
 			
 			if (checkHasToSelectTarget()) {
+				startWait();
 				calculateNextTarget();
 				calculateSpeed();
-			//	updateToraxRotation(new Point((int)target.x(), (int)target.y()));
-			//	updateLegsRotation(target);
+				
 				hasToSelectTarget = false;
 			}
 			
-			getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
-			setPosition(getPosition().add(getSpeed().add(getPush())));
-			getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
-
+			if (waitLeft > 0) {
+				waitLeft--;
+			}
+			else if (waitLeft == 0) {
+				updateToraxRotation(new Point((int)target.x(), (int)target.y()));
+				updateLegsRotation(target);
+				waitLeft--;
+			}
+			else {
+				getLegs().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
+				setPosition(getPosition().add(getSpeed().add(getPush())));
+				getTorax().setLocation(new Point((int) getPosition().x(), (int) getPosition().y()));
+			}
+			
+				
 		}
 		return true;
 	}
