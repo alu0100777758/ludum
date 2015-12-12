@@ -3,6 +3,7 @@ package es.ull.etsii.pai.practicafinal.physics;
 import java.awt.Point;
 import java.awt.geom.Line2D;
 
+import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
 import es.ull.etsii.pai.prct9.geometry.Positionable;
 
@@ -15,12 +16,12 @@ public class Line_trace {
 		this.owner = owner;
 		this.origin = owner.getPos();
 	}
-	public boolean collides(Physical_passive actor) {
+	public boolean collides(Entity actor) {
 		Point2D diff = getOrigin().substract(getOwner().getPos());
 		java.awt.geom.Point2D init = getLine().getP1();
 		java.awt.geom.Point2D end = getLine().getP2();
 		Line2D line = new Line2D.Float((int)(init.getX() + diff.x()),(int)( init.getY() + diff.y()),(int)(end.getX() + diff.x()), (int)(end.getY() + diff.y()));
-		return line.intersects(actor.getPhysicalRectangle());
+		return line.intersects(actor.getShape().getBounds2D());
 	}
 	public Line2D getLine() {
 		return line;
