@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import es.ull.etsii.pai.practicafinal.graphics.GraphicPoint;
 import es.ull.etsii.pai.practicafinal.main.MapSelector;
 import es.ull.etsii.pai.practicafinal.main.SceneManager;
+import es.ull.etsii.pai.practicafinal.physics.Physical_active;
 import es.ull.etsii.pai.practicafinal.physics.Physical_passive;
 import es.ull.etsii.pai.practicafinal.physics.PhysicsEngine;
 
@@ -81,6 +82,13 @@ public class Scenario {
 			for (int i = 0; i < getStaticMap().size(); i++)
 				if (((Physical_passive) getStaticMap().get(i)).hasToDie())
 					getStaticMap().remove(i);
+			for (int i = 0; i < getActors().size(); ++i) {
+				if (((Physical_active) getActors().get(i)).hasToDie()) {
+					getActors().get(i).die();
+					getActors().remove(i);
+				}
+			}
+				
 			if (isEnded()) {
 				AudioManager.stopAll();
 				AudioManager
