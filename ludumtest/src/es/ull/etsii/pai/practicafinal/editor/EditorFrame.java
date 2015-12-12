@@ -84,7 +84,7 @@ public class EditorFrame extends JFrame implements ActionListener,
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(this);    
         pack();
-        setResizable(false);
+        setResizable(true);
         ScreenManager.getInstance().reset();
 	}
 

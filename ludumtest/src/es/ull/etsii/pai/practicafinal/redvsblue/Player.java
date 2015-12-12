@@ -32,6 +32,8 @@ public class Player extends Actor implements Physical_active {
 	private Point2D push; // Vector de empuje.
 	private int score; // puntuacion del jugador.
 	private int hp; // Cantidad de vida actual.
+	private int infection = 0;
+	private int maxInfection = 100; 
 	private Side lookingAt; // Lado al que se esta mirando.
 	private Weapon weapon; // Arma actual.
 	private RvsB_World map; // Mapa en que se encuentra el jugador.
@@ -127,6 +129,8 @@ public class Player extends Actor implements Physical_active {
 
 	@Override
 	public boolean hasToDie() {
+		dead = infection >= maxInfection? true : dead;
+	
 		return isDead();
 	}
 
@@ -144,6 +148,8 @@ public class Player extends Actor implements Physical_active {
 		getSpeed().setX(Math.cos(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
 		getSpeed().setY(Math.sin(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
 		
+		increaseInfection();
+		
 		return true;
 	}
 
@@ -160,6 +166,8 @@ public class Player extends Actor implements Physical_active {
 		
 		getSpeed().setX(Math.cos(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
 		getSpeed().setY(Math.sin(Math.toRadians(getTorax().getRotationg() - 90)) * moduleSpeed);
+		
+		increaseInfection();
 		
 		return true;
 	}
@@ -434,6 +442,12 @@ public class Player extends Actor implements Physical_active {
 		AudioManager.reproduceAudio(getReloadSound());
 	}
 
+	public void increaseInfection(){
+		this.infection++;
+	}
+	public void increaseInfection(int quantity){
+		this.infection += quantity;
+	}
 	/**
 	 * Getters y Setters.
 	 * 
@@ -599,7 +613,7 @@ public class Player extends Actor implements Physical_active {
 		this.hp = hp;
 	}
 
-	public boolean isDead() {
+	protected boolean isDead() {
 		return dead;
 	}
 

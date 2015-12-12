@@ -19,6 +19,7 @@ public class FollowerEnemy extends BasicEnemy {
 			super.calculateNextTarget();
 		
 		setTarget(getMap().getMapData().getPlayer_one().getPosition());
+		calculateMinMax();
 	}
 
 	@Override
