@@ -107,7 +107,7 @@ public class Player extends Actor implements Physical_active {
 
 	public void updateToraxRotation(Point p) {
 		double deltaX = p.getX() - getPosition().x();
-		double deltaY = p.getY() - getPosition().y();
+		double deltaY = getPosition().y() - p.getY();
 		double degre = Math.atan2(deltaX, deltaY);
 		// System.out.println("degree: " + degre+ " xdif: "+deltaX + " ydif: "
 		// +deltaY);
@@ -117,7 +117,7 @@ public class Player extends Actor implements Physical_active {
 	public void updateLegsRotation(Point2D p) {
 //		System.out.println("pos:" + getPosition()+ "     Vvector" + p);
 			double deltaX = p.x() - getPosition().x();
-			double deltaY = p.y() - getPosition().y();
+			double deltaY =  getPosition().y() - p.y();
 			double degre = Math.atan2(deltaX, deltaY);
 //			 System.out.println("degree: " + degre+ " xdif: "+deltaX + " ydif:" +deltaY);
 			getLegs().setRotationg(Math.toDegrees(degre));

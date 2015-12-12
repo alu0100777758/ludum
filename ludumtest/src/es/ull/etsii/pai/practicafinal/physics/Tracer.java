@@ -1,12 +1,13 @@
 package es.ull.etsii.pai.practicafinal.physics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
 import es.ull.etsii.pai.prct9.geometry.Positionable;
 
-public class Tracer {
+public class Tracer implements Serializable{
 	private Positionable owner;
 	boolean [] channels = {true,true, true};
 	Line_trace trace;

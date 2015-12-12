@@ -2,13 +2,14 @@ package es.ull.etsii.pai.practicafinal.physics;
 
 import java.awt.Point;
 import java.awt.geom.Line2D;
+import java.io.Serializable;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.Actor;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
 import es.ull.etsii.pai.prct9.geometry.Point2D;
 import es.ull.etsii.pai.prct9.geometry.Positionable;
 
-public class Line_trace {
+public class Line_trace implements Serializable{
 	Line2D line;
 	Point2D origin;
 	Actor owner;
