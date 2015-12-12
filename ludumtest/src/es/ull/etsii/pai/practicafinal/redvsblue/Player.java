@@ -171,6 +171,7 @@ public class Player extends Actor implements Physical_active {
 
 		// setUP(false);
 		// setCrounched(false);
+		setBlock_down(false);
 		return true;
 	}
 
@@ -191,6 +192,7 @@ public class Player extends Actor implements Physical_active {
 		 * stats.getHeight())); setCrounched(true);
 		 */
 		getSpeed().setY(stats.getSPEED());
+		setBlock_up(false);
 		return true;
 	}
 
@@ -245,7 +247,7 @@ public class Player extends Actor implements Physical_active {
 		if (intersection.isEmpty())
 			return true;
 		// Resolvemos colisiones primero en Y mejor.
-
+	
 		// Miramos si colisiona con la cabeza o los pies:
 
 		// Si alguno es true colisiona con la cabeza.
@@ -254,7 +256,7 @@ public class Player extends Actor implements Physical_active {
 				|| actor.getPhysicalRectangle().contains(
 						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMinY())))
 				&& !isBlock_down()) {
-			if (Math.abs(getSpeed().y()) >= intersection.getHeight()) {
+			if (Math.abs(getSpeed().y()) * 2 >= intersection.getHeight()) {
 				this.setPosition(getPosition().add(new Point2D(0, intersection.getHeight()))); // Tocado
 																								// con
 																								// la
@@ -270,7 +272,7 @@ public class Player extends Actor implements Physical_active {
 				|| actor.getPhysicalRectangle().contains(
 						new Point((int) getPhysicalRectangle().getMaxX(), (int) getPhysicalRectangle().getMaxY())))
 				&& !isBlock_up()) {
-			if (Math.abs(getSpeed().y()) >= intersection.getHeight() && !isBlock_down()) {
+			if (Math.abs(getSpeed().y()) * 2 >= intersection.getHeight() && !isBlock_down()) {
 				this.setPosition(getPosition().add(new Point2D(0, -intersection.getHeight())));// Tocado
 																								// con
 																								// los
