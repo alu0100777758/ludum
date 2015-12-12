@@ -220,7 +220,7 @@ public class Scenario {
 				getPlayer_one().setLeft(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(true);
-			} else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
+			} /*else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
 				getPlayer_one().setUP(true);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(true);
@@ -232,7 +232,7 @@ public class Scenario {
 				getPlayer_one().setLookingAt(Side.RIGHT);
 				// getActors().add(getPlayer_one().shoot());
 				getPlayer_one().shoot();
-			} else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
+			} */else if (keyCode == getKeyMap().get(KeyActions.PAUSE)) {
 				pause();
 			} else if (keyCode == getKeyMap().get(KeyActions.MENU)) {
 				menu();
@@ -260,7 +260,7 @@ public class Scenario {
 				getPlayer_one().setLeft(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1RIGHT)) {
 				getPlayer_one().setRight(false);
-			} else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
+			} /*else if (keyCode == getKeyMap().get(KeyActions.P1DOWN)) {
 				getPlayer_one().setDown(false);
 			} else if (keyCode == getKeyMap().get(KeyActions.P1UP)) {
 				getPlayer_one().setUP(false);
@@ -268,7 +268,7 @@ public class Scenario {
 				getPlayer_one().stopShooting();
 			} else if (keyCode == getKeyMap().get(KeyActions.P1SHOOTRIGHT)) {
 				getPlayer_one().stopShooting();
-			}
+			}*/
 		}
 	}
 
