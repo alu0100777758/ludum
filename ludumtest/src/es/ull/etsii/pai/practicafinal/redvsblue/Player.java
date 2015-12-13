@@ -97,7 +97,7 @@ public class Player extends Actor implements Physical_active {
 					stats.getWidth(), stats.getHeight());
 			toraxs[i].setTexturePath(INFECTION_STATE[i]);
 //			getTorax().setPaint(Color.BLUE);
-			getGraphicShapes().add(toraxs[i]);
+//			getGraphicShapes().add(toraxs[i]);
 		}
 		setTorax(toraxs[0]);
 		// RotationRectangle legs = new RotationRectangle((int)
@@ -164,7 +164,6 @@ public class Player extends Actor implements Physical_active {
 	@Override
 	public void paint(Graphics g) {
 		getLegs().paint(g);
-		setTorax(toraxs[(int)((float)infection/maxInfection * INFECTION_STATE.length)]);
 		getTorax().paint(g);
 		// for (int i = 0; i < getGraphicShapes().size(); i++)
 		// getGraphicShapes().get(i).paint(g.create());
@@ -433,6 +432,7 @@ public class Player extends Actor implements Physical_active {
 			}
 		}
 		return true;
+		
 	}
 
 	/**
@@ -495,6 +495,7 @@ public class Player extends Actor implements Physical_active {
 
 	public void increaseInfection() {
 		this.infection++;
+		setTorax(toraxs[(int)((float)infection/maxInfection * (INFECTION_STATE.length-1))]);
 	}
 
 	public void increaseInfection(int quantity) {
@@ -777,6 +778,8 @@ public class Player extends Actor implements Physical_active {
 
 	public void setInfection(int infection) {
 		this.infection = infection;
+		setTorax(toraxs[(int)((float)infection/maxInfection * (INFECTION_STATE.length)-1)]);
+
 	}
 
 	public int getMaxInfection() {
