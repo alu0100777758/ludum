@@ -84,7 +84,6 @@ public class Scenario {
 					getStaticMap().remove(i);
 			for (int i = 0; i < getActors().size(); ++i) {
 				if (((Physical_active) getActors().get(i)).hasToDie()) {
-					System.out.println("Eutanasia para " +getActors().get(i));
 					getActors().get(i).die();
 					getActors().remove(i);
 				}
