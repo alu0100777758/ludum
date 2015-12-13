@@ -1,5 +1,9 @@
 package es.ull.etsii.pai.practicafinal.main;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
 /**
  * Progamacion de aplicaciones interactivas.
  * Universidad de La Laguna.
@@ -13,12 +17,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.GameScenario;
 import es.ull.etsii.pai.practicafinal.redvsblue.ScenarioPanel;
+import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
 
 public class SceneManager extends JFrame {
 	ScenarioPanel currentScenario;
@@ -27,6 +34,7 @@ public class SceneManager extends JFrame {
 	public SceneManager() {
 		super();
 		this.addKeyListener(new KeyHandler());
+		this.addComponentListener(new SizeHandler());
 	//	this.addMouseMotionListener(new MouseMotionHandler());
 		// setCurrentScenario(scenario);
 		// add(getCurrentScenario());
@@ -92,6 +100,12 @@ public class SceneManager extends JFrame {
 
 	}
 	
+	class SizeHandler extends ComponentAdapter{
+		@Override
+		public void componentResized(ComponentEvent e) {
+			ScreenManager.getInstance().updateWindowSize(getWidth(), getHeight());
+		}
+	}
 	public void notify_resize() {
 		getCurrentScenario().sizeUpdate();
 	}

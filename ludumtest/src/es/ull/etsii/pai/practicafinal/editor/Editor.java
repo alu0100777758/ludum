@@ -29,7 +29,7 @@ public class Editor {
 	public static boolean rebuildFiles = true;
 
 	public static void main(String[] args) {
-		checkFileSystem();
+		//checkFileSystem();
 		EditorFrame frame = new EditorFrame();
 		frame.setTitle("Red VS Blue Editor");
 		frame.setLocationRelativeTo(null); // Center the frame
@@ -53,7 +53,7 @@ public class Editor {
 //				ResourceManager.getInstance().extractFromJar("Recursos/maps/"+map, dirpath+separator+"maps");
 				try {
 //					BvsR_Map loadedMap = BvsR_Map.load("Recursos/maps/"+map);
-					BvsR_Map loadedMap = BvsR_Map.load(BvsR_Map.class.getClassLoader().getResource("maps/"+map));
+					BvsR_Map loadedMap = BvsR_Map.load(BvsR_Map.class.getClassLoader().getResource("maps/"+ map));
 					saveMap(loadedMap, "maps/"+map);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block

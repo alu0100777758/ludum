@@ -119,7 +119,7 @@ public class PhysicsEngine {
 	}
 
 	private void updateCamera() {
-		Rectangle lim = new PhysicalRectangle(WINDOW_TOLERANCE / 2,WINDOW_TOLERANCE / 2, ScreenManager.getInstance().getWindWidth() - WINDOW_TOLERANCE/2,ScreenManager.getInstance().getWindHeight()- WINDOW_TOLERANCE/2);
+		Rectangle lim = new PhysicalRectangle(WINDOW_TOLERANCE / 2,WINDOW_TOLERANCE / 2, ScreenManager.getInstance().getWindWidth() - WINDOW_TOLERANCE,ScreenManager.getInstance().getWindHeight()- WINDOW_TOLERANCE);
 		ScreenManager scr = ScreenManager.getInstance();
 		Point2D ppoint = getWorld().getPlayer_one().getPosition().add(scr.getOffset_x(), scr.getOffset_y());
 		if(getWorld().getPlayer_one()!= null && !lim.contains(ppoint.x(), ppoint.y())){

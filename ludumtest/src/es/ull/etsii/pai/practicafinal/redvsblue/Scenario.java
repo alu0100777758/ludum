@@ -68,12 +68,13 @@ public class Scenario {
 			}
 		}
 		new GraphicPoint(new Point(0, 0), Color.RED, 3);
-//		initcam();
+		initcam();
 	}
 	public void initcam(){
 		ScreenManager scr = ScreenManager.getInstance();
-		scr.setOffset_x(scr.getWindWidth()/2 + getPlayer_one().getX());
-		scr.setOffset_x(scr.getWindHeight()/2 + getPlayer_one().gety());
+
+		scr.setOffset_x(-(getPlayer_one().getX() - scr.getWindWidth()/2));
+		scr.setOffset_y(-(getPlayer_one().gety() - scr.getWindHeight()/2));
 	}
 
 	/**
