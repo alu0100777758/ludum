@@ -57,8 +57,6 @@ public class RectangleTool extends EditorTool {
 			setBegin(arg0.getPoint());
 			setLastVisited(getBegin());
 		} else {
-			addRectangle((int) begin.getX(), (int) begin.getY(), arg0.getX(),
-					arg0.getY());
 			setDrawing(false);
 		}
 		setModified(true);
@@ -67,8 +65,10 @@ public class RectangleTool extends EditorTool {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		if (isDrawing()) {
-			addRectangle((int) begin.getX(), (int) begin.getY(), arg0.getX(),
-					arg0.getY());
+			Point begin = outSystem(getBegin());
+			Point end = outSystem(arg0.getPoint());
+			addRectangle((int) begin.getX(), (int) begin.getY(), (int)end.getX(),
+					(int)end.getY());
 			setDrawing(false);
 		}
 		setModified(true);

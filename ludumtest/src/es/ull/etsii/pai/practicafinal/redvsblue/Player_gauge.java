@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.graphics.Drawable;
 import es.ull.etsii.pai.practicafinal.graphics.GraphicRectangle;
+import es.ull.etsii.pai.practicafinal.graphics.HUD_Rectangle;
 
 public class Player_gauge extends Entity implements Drawable, Serializable {
 	public static final int LIFE_FEEDBACK_PORTION = 5; // intervalo de vida por el que se repetir� la textura de referencia
@@ -41,7 +42,7 @@ public class Player_gauge extends Entity implements Drawable, Serializable {
 	}
 	
 	public void setCurrent(){
-		GraphicRectangle current = new GraphicRectangle(x_pos, y_pos, WIDTH,
+		HUD_Rectangle current = new HUD_Rectangle(x_pos, y_pos, WIDTH,
 				HEIGHT);
 		current.setTexturePath("textures/" + "mid_gauge.png");
 		current.setTextureAnchor(new Rectangle(x_pos,y_pos,WIDTH,HEIGHT));
@@ -90,7 +91,7 @@ public class Player_gauge extends Entity implements Drawable, Serializable {
 	}
 
 	private void setBackgroundGauge() {
-		GraphicRectangle background = new GraphicRectangle(x_pos, y_pos, WIDTH,
+		HUD_Rectangle background = new HUD_Rectangle(x_pos, y_pos, WIDTH,
 				HEIGHT);
 		background.setTexturePath("textures/" + "background_gauge.png");
 		background.setTextureAnchor(new Rectangle(x_pos,y_pos,WIDTH,HEIGHT));
@@ -99,15 +100,15 @@ public class Player_gauge extends Entity implements Drawable, Serializable {
 	}
 
 	private void setFront() {
-		GraphicRectangle grct = new GraphicRectangle(x_pos, y_pos, WIDTH,
+		HUD_Rectangle grct = new HUD_Rectangle(x_pos, y_pos, WIDTH,
 				HEIGHT);
 		grct.setTexturePath("textures/" + "front_gauge.png");
-		grct.setTextureAnchor(new Rectangle(x_pos,y_pos,(int)(WIDTH*((double)LIFE_FEEDBACK_PORTION/getCurrentPlayer().getMaxHp())),HEIGHT));
+		grct.setTextureAnchor(new Rectangle(x_pos,y_pos,(int)(WIDTH*((double)LIFE_FEEDBACK_PORTION/getCurrentPlayer().getMaxInfection())),HEIGHT));
 		grct.setTexturized(true);
 		getGraphicShapes().add(grct);
 	}
 	private void setBorder() {
-		GraphicRectangle grct = new GraphicRectangle(x_pos, y_pos, WIDTH, HEIGHT);
+		HUD_Rectangle grct = new HUD_Rectangle(x_pos, y_pos, WIDTH, HEIGHT);
 		grct.setTexturePath("textures/" + "border_gauge.png");
 		grct.setTextureAnchor(new Rectangle(x_pos,y_pos,WIDTH,HEIGHT));
 		grct.setTexturized(true);
@@ -141,7 +142,7 @@ public class Player_gauge extends Entity implements Drawable, Serializable {
 		for (GraphicRectangle rect : getGraphicShapes())
 			rect.paint(g);
 		g.setColor(Color.YELLOW);
-		g.drawString(Integer.toString(getCurrentPlayer().getWeapon().getMainAmmo()),(int)((getX_pos()+20)*ScreenManager.getInstance().getRate_x()), (int)(ScreenManager.getInstance().getRate_y()*20));
+//		g.drawString(Integer.toString(getCurrentPlayer().getWeapon().getMainAmmo()),(int)((getX_pos()+20)*ScreenManager.getInstance().getRate_x()), (int)(ScreenManager.getInstance().getRate_y()*20));
 	}
 
 	private void updateCurrent() {
@@ -149,8 +150,8 @@ public class Player_gauge extends Entity implements Drawable, Serializable {
 				.setFrame(
 						x_pos,
 						y_pos,
-						(int) (WIDTH * ((double) getCurrentPlayer().getHp() / getCurrentPlayer()
-								.getMaxHp())), HEIGHT);
+						(int) (WIDTH * ((double) getCurrentPlayer().getInfection()/ getCurrentPlayer()
+								.getMaxInfection())), HEIGHT);
 
 	}
 

@@ -20,6 +20,7 @@ public class RvsB_World implements Drawable {
 		setMapData(map);
 		//init gui here
 		setPlayers();
+		getGUI().add(new Player_gauge(getPlayer_one(), 0));
 	}
 	private void setPlayers() {
 		getPlayer_one().setMap(this);

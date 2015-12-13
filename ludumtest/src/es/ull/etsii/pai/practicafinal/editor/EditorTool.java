@@ -44,7 +44,7 @@ public abstract class EditorTool implements ActionListener, MouseListener,
 	}
 	Point outSystem(Point point){
 		ScreenManager scr = ScreenManager.getInstance();
-		point.setLocation((int)((point.getX()-scr.getOffset_x())/scr.getRate_x()),(int)((point.getY()-scr.getOffset_y())/scr.getRate_y()));
+		point.setLocation((int)((point.getX() - scr.getOffset_x())/scr.getRate_x()),(int)((point.getY()- scr.getOffset_y())/scr.getRate_y()));
 		return point;
 	}
 	Point2D inSystem(Point2D point){

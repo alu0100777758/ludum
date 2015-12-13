@@ -10,7 +10,7 @@ import java.awt.Dimension;
 
 public class ScreenManager {
 	public static int WINDOW_WIDTH = 1200;						// Ancho de la ventana.
-	public static int WINDOW_HEIGHT = 800;
+	public static int WINDOW_HEIGHT = 800;// hacerdinamica
 	private static ScreenManager instance = null;
 	private double rate_x = 1;
 	private double rate_y = 1;

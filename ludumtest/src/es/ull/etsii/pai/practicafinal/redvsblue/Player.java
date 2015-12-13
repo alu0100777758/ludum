@@ -33,6 +33,10 @@ public class Player extends Actor implements Physical_active {
 	private static final long serialVersionUID = -3033119409170313204L;
 	public static final String[] LEG_SPRITES = { "textures/leg_right_sprite.png", "textures/leg_mid_sprite.png",
 			"textures/leg_left_sprite.png" };
+	public static final String[] INFECTION_STATE = { "textures/char_sprite.png", "textures/char_sprite2.png",
+			"textures/char_sprite3.png", "textures/char_sprite4.png", "textures/char_sprite5.png",
+			"textures/char_sprite6.png" };
+	private RotationRectangle[] toraxs = new RotationRectangle[INFECTION_STATE.length];
 	private Point2D speed = new Point2D(0, -5); // Vector velocidad.
 	private Point2D push; // Vector de empuje.
 	private int score; // puntuacion del jugador.
@@ -70,6 +74,7 @@ public class Player extends Actor implements Physical_active {
 														// reparacion de
 														// colisiones.
 	private Tracer killTracer;
+
 	/**
 	 * Crea un jugador en la posicion dada en el mapa dado.
 	 * 
@@ -86,12 +91,15 @@ public class Player extends Actor implements Physical_active {
 		setLookingAt(Side.RIGHT);
 		setPush(new Point2D(0, 0));
 		setJump(100, 0.33);
-		RotationRectangle torax = new RotationRectangle((int) getPosition().x(), (int) getPosition().y(),
-				stats.getWidth(), stats.getHeight());
-		setTorax(torax);
-		getTorax().setPaint(Color.BLUE);
-		getGraphicShapes().add(torax);
 
+		for (int i = 0; i< INFECTION_STATE.length; i++) {
+			toraxs[i] = new RotationRectangle((int) getPosition().x(), (int) getPosition().y(),
+					stats.getWidth(), stats.getHeight());
+			toraxs[i].setTexturePath(INFECTION_STATE[i]);
+//			getTorax().setPaint(Color.BLUE);
+			getGraphicShapes().add(toraxs[i]);
+		}
+		setTorax(toraxs[0]);
 		// RotationRectangle legs = new RotationRectangle((int)
 		// getPosition().x(), (int) getPosition().y(),
 		// stats.getWidth(), stats.getHeight());
@@ -101,7 +109,6 @@ public class Player extends Actor implements Physical_active {
 			addLegs(legs);
 			legs.setTexturePath(path);
 			getGraphicShapes().add(legs);
-
 		}
 		// addLegs(legs);
 		// getGraphicShapes().add(legs);
@@ -117,12 +124,20 @@ public class Player extends Actor implements Physical_active {
 
 	}
 
+	public RotationRectangle[] getToraxs() {
+		return toraxs;
+	}
+
+	public void setToraxs(RotationRectangle[] toraxs) {
+		this.toraxs = toraxs;
+	}
+
 	void update_animSpeed() {
 		if (getSpeed().equals(Point2D.ORIGIN)) {
 			this.legs.setMaxSteps(0);
 		} else {
 			int ttl = (int) Math.sqrt(Math.pow(getSpeed().x(), 2) + Math.pow(getSpeed().y(), 2));
-//			System.out.println(" la velocidad es : " + ttl);
+			// System.out.println(" la velocidad es : " + ttl);
 			this.legs.setMaxSteps(40 - ttl);
 		}
 	}
@@ -149,6 +164,7 @@ public class Player extends Actor implements Physical_active {
 	@Override
 	public void paint(Graphics g) {
 		getLegs().paint(g);
+		setTorax(toraxs[(int)((float)infection/maxInfection * INFECTION_STATE.length)]);
 		getTorax().paint(g);
 		// for (int i = 0; i < getGraphicShapes().size(); i++)
 		// getGraphicShapes().get(i).paint(g.create());
@@ -384,8 +400,8 @@ public class Player extends Actor implements Physical_active {
 	@Override
 	public boolean updatePos(Physical_passive map) {
 		update_animSpeed();
-//		if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
-//			return false;
+		// if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
+		// return false;
 		if (!isDead()) {
 			ResolveUnreleasedMovements();
 			getWeapon().update();
@@ -409,9 +425,9 @@ public class Player extends Actor implements Physical_active {
 					(float) getSpeed().y());
 			getKillTracer().getTrace().setLine(line);
 			ArrayList<Entity> hits = getKillTracer().getCollision(getMap());
-			for(Entity ent  : hits){
-				if(ent instanceof Player && ent != this){
-					Player plent = (Player)ent;
+			for (Entity ent : hits) {
+				if (ent instanceof Player && ent != this) {
+					Player plent = (Player) ent;
 					plent.die();
 				}
 			}
@@ -753,6 +769,22 @@ public class Player extends Actor implements Physical_active {
 
 	public void setKillTracer(Tracer killTracer) {
 		this.killTracer = killTracer;
+	}
+
+	public int getInfection() {
+		return infection;
+	}
+
+	public void setInfection(int infection) {
+		this.infection = infection;
+	}
+
+	public int getMaxInfection() {
+		return maxInfection;
+	}
+
+	public void setMaxInfection(int maxInfection) {
+		this.maxInfection = maxInfection;
 	}
 
 }
