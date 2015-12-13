@@ -5,40 +5,41 @@ import java.util.ArrayList;
 
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
+import es.ull.etsii.pai.practicafinal.redvsblue.RvsB_World;
 import es.ull.etsii.pai.prct9.geometry.Positionable;
 
 public class Tracer implements Serializable{
 	private Positionable owner;
-	boolean [] channels = {true,true, true};
+	boolean [] channels = {true,false,true,true};
 	Line_trace trace;
 	public Tracer(Line_trace trace) {
 		this.trace = trace;
 	}
-	public ArrayList<Entity>  getCollision(BvsR_Map map){
+	public ArrayList<Entity>  getCollision(RvsB_World rvsB_World){
 		ArrayList<Entity> actors = new ArrayList<>();
 		if(channels[BvsR_Map.PLANE_ACTORS]){
-			for(Entity ent : map.getActors()){
+			for(Entity ent : rvsB_World.getMapData().getActors()){
 				if(trace.collides(ent)){
 					actors.add(ent);
 				}
 			}
 		}
 		if(channels[BvsR_Map.PLANE_BACKGROUND]){
-			for(Entity ent : map.getBackground()){
+			for(Entity ent : rvsB_World.getMapData().getBackground()){
 				if(trace.collides(ent)){
 					actors.add(ent);
 				}
 			}
 		}
 		if(channels[BvsR_Map.PLANE_FOREKGROUND]){
-			for(Entity ent : map.getForeground()){
+			for(Entity ent : rvsB_World.getMapData().getForeground()){
 				if(trace.collides(ent)){
 					actors.add(ent);
 				}
 			}
 		}
 		if(channels[BvsR_Map.PLANE_MAP]){
-			for(Entity ent : map.getStaticMap()){
+			for(Entity ent : rvsB_World.getStaticMap()){
 				if(trace.collides(ent)){
 					actors.add(ent);
 				}

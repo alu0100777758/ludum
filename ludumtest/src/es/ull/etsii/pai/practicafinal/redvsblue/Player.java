@@ -408,6 +408,13 @@ public class Player extends Actor implements Physical_active {
 					(float) getKillTracer().getTrace().getLine().getY1(), (float) getSpeed().x(),
 					(float) getSpeed().y());
 			getKillTracer().getTrace().setLine(line);
+			ArrayList<Entity> hits = getKillTracer().getCollision(getMap());
+			for(Entity ent  : hits){
+				if(ent instanceof Player && ent != this){
+					Player plent = (Player)ent;
+					plent.die();
+				}
+			}
 		}
 		return true;
 	}
