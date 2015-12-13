@@ -9,8 +9,6 @@ package es.ull.etsii.pai.common;
  */
 import java.util.ArrayList;
 
-import es.ull.etsii.pai.prct9.geometry.Positionable;
-
 public class CircularArrayList<E> extends ArrayList<E> {
 	private static final long serialVersionUID = 9032499745453854434L;
 	private int head = 0;

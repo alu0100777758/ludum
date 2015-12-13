@@ -1,4 +1,5 @@
 package es.ull.etsii.pai.practicafinal.physics;
+import java.awt.Rectangle;
 /**
  * Progamacion de aplicaciones interactivas.
  * Universidad de La Laguna.
@@ -8,13 +9,17 @@ package es.ull.etsii.pai.practicafinal.physics;
  */
 import java.util.ArrayList;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+
 import es.ull.etsii.pai.practicafinal.redvsblue.Actor;
 import es.ull.etsii.pai.practicafinal.redvsblue.BasicEnemy;
 import es.ull.etsii.pai.practicafinal.redvsblue.Bullet;
 import es.ull.etsii.pai.practicafinal.redvsblue.BvsR_Map;
 import es.ull.etsii.pai.practicafinal.redvsblue.Entity;
+import es.ull.etsii.pai.practicafinal.redvsblue.Player;
 import es.ull.etsii.pai.practicafinal.redvsblue.RvsB_World;
 import es.ull.etsii.pai.practicafinal.redvsblue.ScreenManager;
+import es.ull.etsii.pai.prct9.geometry.Point2D;
 
 public class PhysicsEngine {
 	RvsB_World world;
@@ -37,7 +42,6 @@ public class PhysicsEngine {
 	}
 	public void update() {
 		Physical_passive map;
-
 		for (int i = 0; i < getActors().size(); i++) {
 			if (!((Physical_active) getActors().get(i))
 					.updatePos(new PhysicalRectangle(-WINDOW_TOLERANCE / 2,
@@ -45,10 +49,9 @@ public class PhysicsEngine {
 									.getWindWidth() + WINDOW_TOLERANCE,
 							ScreenManager.getInstance().getWindHeight()
 									+ WINDOW_TOLERANCE))) {
-				getActors().get(i).die();
-				getActors().remove(i);
+					getActors().get(i).die();
+					getActors().remove(i);
 			}
-
 		}
 		for (int i = 0; i < getMapData().getBullets().size(); i++) {
 			Bullet bullet = getMapData().getBullets().get(i);
@@ -112,8 +115,35 @@ public class PhysicsEngine {
 		// }
 		// }
 		// }
+		updateCamera();
+	}
 
-
+	private void updateCamera() {
+		Rectangle lim = new PhysicalRectangle(WINDOW_TOLERANCE / 2,WINDOW_TOLERANCE / 2, ScreenManager.getInstance().getWindWidth() - WINDOW_TOLERANCE/2,ScreenManager.getInstance().getWindHeight()- WINDOW_TOLERANCE/2);
+		ScreenManager scr = ScreenManager.getInstance();
+		Point2D ppoint = getWorld().getPlayer_one().getPosition().add(scr.getOffset_x(), scr.getOffset_y());
+		if(getWorld().getPlayer_one()!= null && !lim.contains(ppoint.x(), ppoint.y())){
+			System.out.println("Rectangle : " + lim);
+			int outcode = lim.outcode(ppoint.x(), ppoint.y());
+			int xspeed = 0;
+			int yspeed = 0;
+			System.out.println("outcode = " + outcode );
+			if( (outcode & Rectangle.OUT_LEFT ) == Rectangle.OUT_LEFT)
+				xspeed = (int)(ppoint.x() - lim.getX());
+			else if ((outcode & Rectangle.OUT_RIGHT ) == Rectangle.OUT_RIGHT){
+				System.out.println("is right");
+				xspeed = (int)(ppoint.x() - lim.getMaxX());
+			}
+			if( (outcode & Rectangle.OUT_TOP ) == Rectangle.OUT_TOP)
+				yspeed = (int)(ppoint.y() - lim.getY());
+			else if ((outcode & Rectangle.OUT_BOTTOM ) == Rectangle.OUT_BOTTOM){
+				System.out.println("is bottom ! ");
+				yspeed = (int)( ppoint.y() - lim.getMaxY());
+			}
+			System.out.println("outcode = " + outcode );
+			scr.setOffset_x(scr.getOffset_x() - xspeed);
+			scr.setOffset_y(scr.getOffset_y() - yspeed);
+		}
 	}
 
 	private ArrayList<Entity> getStaticMap() {

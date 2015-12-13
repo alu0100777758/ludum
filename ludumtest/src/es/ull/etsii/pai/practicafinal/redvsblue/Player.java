@@ -384,8 +384,8 @@ public class Player extends Actor implements Physical_active {
 	@Override
 	public boolean updatePos(Physical_passive map) {
 		update_animSpeed();
-		if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
-			return false;
+//		if (!map.getPhysicalRectangle().contains(getPhysicalShape()))
+//			return false;
 		if (!isDead()) {
 			ResolveUnreleasedMovements();
 			getWeapon().update();

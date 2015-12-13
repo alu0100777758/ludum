@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
@@ -45,7 +44,7 @@ public abstract class EditorTool implements ActionListener, MouseListener,
 	}
 	Point outSystem(Point point){
 		ScreenManager scr = ScreenManager.getInstance();
-		point.setLocation((int)(point.getX()-scr.getOffset_x())/scr.getRate_x(),(int)(point.getY()-scr.getOffset_y())/scr.getRate_y());
+		point.setLocation((int)((point.getX()-scr.getOffset_x())/scr.getRate_x()),(int)((point.getY()-scr.getOffset_y())/scr.getRate_y()));
 		return point;
 	}
 	Point2D inSystem(Point2D point){
@@ -95,10 +94,6 @@ public abstract class EditorTool implements ActionListener, MouseListener,
 
 	public void setButton(JButton button) {
 		this.button = button;
-	}
-	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
