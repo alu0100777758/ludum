@@ -29,16 +29,13 @@ public class RectangleTool extends EditorTool {
 	private boolean drawing = false;											//	verdadero si la herramienta se encuentra dibujando el rectangulo
 	private Point begin;														//	posicion del rectangulo (punto en el que se hace clic)
 	private Point lastVisited;													//	Ultimo punto visitado durante el arrastre del boton
-
 	public RectangleTool() {
 		setButton(new JButton(new ImageIcon(getClass().getResource(
 				T_RECTANGLE_ICON))));
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
-
 	protected void addRectangle(int i, int j, int i2, int j2) {
 		ScreenManager scr = ScreenManager.getInstance();
 		int beginX = Math.min(i, i2);
@@ -65,8 +62,8 @@ public class RectangleTool extends EditorTool {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		if (isDrawing()) {
-			Point begin = outSystem(getBegin());
-			Point end = outSystem(arg0.getPoint());
+			Point begin = getBegin();
+			Point end = arg0.getPoint();
 			addRectangle((int) begin.getX(), (int) begin.getY(), (int)end.getX(),
 					(int)end.getY());
 			setDrawing(false);
